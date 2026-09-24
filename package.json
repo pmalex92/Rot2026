@@ -1,0 +1,27 @@
+{
+  "name": "rotary-club-caransebes",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "npm run sync-news && astro check && astro build",
+    "build:unchecked": "npm run sync-news && astro build",
+    "preview": "astro preview",
+    "sync-news": "node --env-file-if-exists=.env scripts/sync-facebook.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5",
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

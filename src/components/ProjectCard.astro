@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  href: string;
+}
+const { project, href } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { title, date, image, excerpt, category } = project.data;
+---
+
+<article class="card flex flex-col overflow-hidden p-0">
+  {
+    image && (
+      <div class="aspect-[16/10] overflow-hidden bg-rotary-blue/5">
+        <img src={image} alt="" loading="lazy" class="h-full w-full object-cover" />
+      </div>
+    )
+  }
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <span class="section-eyebrow">
+      {category === 'realizare' ? t('nav.proiecte.realizari') : t('nav.proiecte.actiuni')}
+    </span>
+    <h3 class="text-lg font-bold text-rotary-blue">
+      <a href={localePath(lang, href)} class="hover:text-rotary-azure">{title}</a>
+    </h3>
+    <p class="flex-1 text-sm text-rotary-ink/70">{excerpt}</p>
+    <time class="text-xs text-rotary-ink/50">
+      {date.toLocaleDateString(lang === 'ro' ? 'ro-RO' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+    </time>
+  </div>
+</article>

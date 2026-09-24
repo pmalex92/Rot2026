@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import NewsCard from '../NewsCard.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getFacebookPosts, getFacebookSyncedAt, formatPostDate } from '../../lib/facebook';
+import { site } from '../../data/site';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const posts = getFacebookPosts();
+const syncedAt = getFacebookSyncedAt();
+---
+
+<BaseLayout title={`${t('nav.stiri')} — Rotary Club Caransebeș`} description={t('page.stiri.intro')}>
+  <PageHero title={t('nav.stiri')} intro={t('page.stiri.intro')} />
+
+  <section class="container-page py-12 sm:py-16">
+    {
+      posts.length > 0 ? (
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => <NewsCard post={post} />)}
+        </div>
+      ) : (
+        <p class="max-w-xl text-rotary-ink/60">{t('home.news.empty')}</p>
+      )
+    }
+
+    <div class="mt-12 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">
+        {t('page.stiri.follow')}
+      </a>
+      {syncedAt && <p class="text-xs text-rotary-ink/50">{t('page.stiri.synced')} {formatPostDate(syncedAt, lang)}</p>}
+    </div>
+  </section>
+</BaseLayout>

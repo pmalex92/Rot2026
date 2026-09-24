@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-rotary-navy: #0b2f63;
+  --color-rotary-blue: #17458f;
+  --color-rotary-azure: #0067c8;
+  --color-rotary-skyblue: #00a2e0;
+  --color-rotary-gold: #f2a900;
+  --color-rotary-gold2: #fcb131;
+  --color-rotary-cream: #fbf8f2;
+  --color-rotary-ink: #12213c;
+
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 8px 24px -8px rgb(11 47 99 / 0.25);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-rotary-cream font-body text-rotary-ink antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-rotary-blue;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-rotary-gold;
+  }
+  button,
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-rotary-gold px-6 py-3 text-sm font-semibold text-rotary-navy shadow-card transition hover:bg-rotary-gold2 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/80 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-rotary-blue active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-rotary-blue px-6 py-3 text-sm font-semibold text-rotary-blue transition hover:bg-rotary-blue hover:text-white active:scale-[0.98];
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-bold tracking-[0.2em] text-rotary-gold uppercase;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white p-6 shadow-card ring-1 ring-black/5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

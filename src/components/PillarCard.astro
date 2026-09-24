@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: 'club' | 'vocational' | 'community' | 'international';
+}
+const { title, description, icon } = Astro.props;
+
+const icons: Record<Props['icon'], string> = {
+  club: 'M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z',
+  vocational: 'M3 7h18M3 7l1 12h16l1-12M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2',
+  community: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2',
+  international: 'M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a13 13 0 010 18M12 3a13 13 0 000 18',
+};
+---
+
+<div class="card flex flex-col items-start gap-4">
+  <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-rotary-blue/10 text-rotary-blue">
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d={icons[icon]} />
+    </svg>
+  </div>
+  <h3 class="text-lg font-bold">{title}</h3>
+  <p class="text-sm text-rotary-ink/70">{description}</p>
+</div>

@@ -1,0 +1,98 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import ProjectCard from '../ProjectCard.astro';
+import { getLangFromUrl, useTranslations, localePath } from '../../i18n/utils';
+
+interface Props {
+  category?: 'realizare' | 'actiune';
+}
+const { category } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const dateLocale = lang === 'ro' ? 'ro-RO' : 'en-GB';
+
+const projects = (
+  await getCollection('projects', (e) => e.data.lang === lang && (!category || e.data.category === category))
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const rendered = category
+  ? await Promise.all(projects.map(async (p) => ({ entry: p, Content: (await render(p)).Content })))
+  : [];
+
+const categoryPath = (c: 'realizare' | 'actiune') => (c === 'realizare' ? '/proiecte/realizari' : '/proiecte/actiuni');
+
+const title = category
+  ? t(category === 'realizare' ? 'nav.proiecte.realizari' : 'nav.proiecte.actiuni')
+  : t('nav.proiecte');
+const intro = category
+  ? t(category === 'realizare' ? 'page.realizari.intro' : 'page.actiuni.intro')
+  : t('page.proiecte.intro');
+---
+
+<BaseLayout title={`${title} — Rotary Club Caransebeș`} description={intro}>
+  <PageHero title={title} intro={intro} eyebrow={category ? t('nav.proiecte') : undefined} />
+
+  <div class="container-page py-8">
+    <nav class="flex gap-2 overflow-x-auto pb-1 text-sm font-semibold" aria-label={t('nav.proiecte')}>
+      {
+        [
+          { href: '/proiecte', label: t('nav.proiecte'), active: !category },
+          { href: '/proiecte/realizari', label: t('nav.proiecte.realizari'), active: category === 'realizare' },
+          { href: '/proiecte/actiuni', label: t('nav.proiecte.actiuni'), active: category === 'actiune' },
+        ].map((tab) => (
+          <a
+            href={localePath(lang, tab.href)}
+            class:list={[
+              'shrink-0 rounded-full px-4 py-2 transition',
+              tab.active ? 'bg-rotary-blue text-white' : 'bg-white text-rotary-blue ring-1 ring-rotary-blue/20 hover:bg-rotary-blue/5',
+            ]}
+            aria-current={tab.active ? 'page' : undefined}
+          >
+            {tab.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <section class="container-page pb-16 sm:pb-20">
+    {projects.length === 0 && <p class="text-rotary-ink/60">{t('page.empty')}</p>}
+
+    {
+      !category && projects.length > 0 && (
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((p) => (
+            <ProjectCard project={p} href={`${categoryPath(p.data.category)}#${p.id}`} />
+          ))}
+        </div>
+      )
+    }
+
+    {
+      category && (
+        <div class="flex flex-col gap-8">
+          {rendered.map(({ entry, Content }) => (
+            <article id={entry.id} class="card scroll-mt-24 overflow-hidden p-0 md:grid md:grid-cols-5">
+              {entry.data.image && (
+                <div class="aspect-[16/10] bg-rotary-blue/5 md:col-span-2 md:aspect-auto">
+                  <img src={entry.data.image} alt="" loading="lazy" class="h-full w-full object-cover" />
+                </div>
+              )}
+              <div class:list={['p-6 sm:p-8', entry.data.image ? 'md:col-span-3' : 'md:col-span-5']}>
+                <time class="section-eyebrow" datetime={entry.data.date.toISOString()}>
+                  {entry.data.date.toLocaleDateString(dateLocale, { day: 'numeric', month: 'long', year: 'numeric' })}
+                </time>
+                <h2 class="mt-2 text-xl font-extrabold sm:text-2xl">{entry.data.title}</h2>
+                <div class="prose mt-4 max-w-none prose-a:text-rotary-azure">
+                  <Content />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

@@ -1,0 +1,138 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PillarCard from '../PillarCard.astro';
+import NewsCard from '../NewsCard.astro';
+import ProjectCard from '../ProjectCard.astro';
+import RotaryWheel from '../RotaryWheel.astro';
+import { getLangFromUrl, useTranslations, localePath } from '../../i18n/utils';
+import { getFacebookPosts } from '../../lib/facebook';
+import { site } from '../../data/site';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const posts = getFacebookPosts(3);
+
+const allProjects = await getCollection('projects', (entry) => entry.data.lang === lang);
+const projects = allProjects
+  .sort((a, b) => (a.data.featured === b.data.featured ? b.data.date.valueOf() - a.data.date.valueOf() : a.data.featured ? -1 : 1))
+  .slice(0, 3);
+
+const projectHref = (p: (typeof projects)[number]) =>
+  `/proiecte/${p.data.category === 'realizare' ? 'realizari' : 'actiuni'}#${p.id}`;
+
+const pillars = [
+  { icon: 'club' as const, title: t('pillar.club.title'), desc: t('pillar.club.desc') },
+  { icon: 'vocational' as const, title: t('pillar.vocational.title'), desc: t('pillar.vocational.desc') },
+  { icon: 'community' as const, title: t('pillar.community.title'), desc: t('pillar.community.desc') },
+  { icon: 'international' as const, title: t('pillar.international.title'), desc: t('pillar.international.desc') },
+];
+---
+
+<BaseLayout
+  title="Rotary Club Caransebeș"
+  description={t('home.hero.subtitle')}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-rotary-blue text-white">
+    <RotaryWheel class="pointer-events-none absolute -right-24 -top-24 h-[28rem] w-[28rem] text-white/10" />
+    <RotaryWheel class="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 text-rotary-gold/10" />
+    <div class="container-page relative flex flex-col gap-8 py-16 sm:py-20 lg:py-28">
+      <p class="section-eyebrow">{t('home.hero.eyebrow')}</p>
+      <h1 class="max-w-3xl text-white text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+        {t('home.hero.title')}
+      </h1>
+      <p class="max-w-2xl text-base text-white/85 sm:text-lg">
+        {t('home.hero.subtitle')}
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a href={localePath(lang, '/proiecte')} class="btn-primary">{t('home.hero.cta1')}</a>
+        <a href={localePath(lang, '/membership/admitere-in-club')} class="btn-secondary">{t('home.hero.cta2')}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="border-b border-black/5 bg-white">
+    <div class="container-page grid grid-cols-3 divide-x divide-black/10 py-8 text-center">
+      <div>
+        <p class="font-display text-2xl font-extrabold text-rotary-blue sm:text-4xl">{site.stats.years}</p>
+        <p class="mt-1 text-xs text-rotary-ink/60 sm:text-sm">{t('home.stats.years')}</p>
+      </div>
+      <div>
+        <p class="font-display text-2xl font-extrabold text-rotary-blue sm:text-4xl">{site.stats.members}</p>
+        <p class="mt-1 text-xs text-rotary-ink/60 sm:text-sm">{t('home.stats.members')}</p>
+      </div>
+      <div>
+        <p class="font-display text-2xl font-extrabold text-rotary-blue sm:text-4xl">{site.stats.projects}</p>
+        <p class="mt-1 text-xs text-rotary-ink/60 sm:text-sm">{t('home.stats.projects')}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="py-16 sm:py-20">
+    <div class="container-page">
+      <div class="max-w-2xl">
+        <p class="section-eyebrow">{t('home.pillars.subtitle')}</p>
+        <h2 class="mt-2 text-2xl font-extrabold sm:text-3xl">{t('home.pillars.title')}</h2>
+      </div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {pillars.map((p) => <PillarCard title={p.title} description={p.desc} icon={p.icon} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- News from Facebook -->
+  <section class="bg-rotary-cream py-16 sm:py-20">
+    <div class="container-page">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="section-eyebrow">{t('home.news.subtitle')}</p>
+          <h2 class="mt-2 text-2xl font-extrabold sm:text-3xl">{t('home.news.title')}</h2>
+        </div>
+        <a href={localePath(lang, '/stiri')} class="btn-outline shrink-0 self-start px-5 py-2 text-sm">
+          {t('home.news.viewAll')}
+        </a>
+      </div>
+
+      {
+        posts.length > 0 ? (
+          <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => <NewsCard post={post} />)}
+          </div>
+        ) : (
+          <p class="mt-10 max-w-xl text-sm text-rotary-ink/60">{t('home.news.empty')}</p>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Projects -->
+  {
+    projects.length > 0 && (
+      <section class="py-16 sm:py-20">
+        <div class="container-page">
+          <p class="section-eyebrow">{t('home.projects.subtitle')}</p>
+          <h2 class="mt-2 text-2xl font-extrabold sm:text-3xl">{t('home.projects.title')}</h2>
+          <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ProjectCard project={project} href={projectHref(project)} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Join CTA -->
+  <section class="relative overflow-hidden bg-rotary-navy py-16 text-white sm:py-20">
+    <RotaryWheel class="pointer-events-none absolute -right-16 top-1/2 h-72 w-72 -translate-y-1/2 text-rotary-gold/10" />
+    <div class="container-page relative flex flex-col items-start gap-5">
+      <h2 class="max-w-xl text-2xl font-extrabold text-white sm:text-3xl">{t('home.join.title')}</h2>
+      <p class="max-w-xl text-white/80">{t('home.join.subtitle')}</p>
+      <a href={localePath(lang, '/membership/admitere-in-club')} class="btn-primary">{t('home.join.cta')}</a>
+    </div>
+  </section>
+</BaseLayout>

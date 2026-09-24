@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import ContentPageView from '../components/views/ContentPageView.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('pages', (e) => e.data.lang === 'ro');
+  return entries.map((entry) => ({ params: { path: entry.data.path }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ContentPageView entry={entry} />

@@ -1,0 +1,76 @@
+---
+import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+import { nav } from '../data/navigation';
+import RotaryWheel from './RotaryWheel.astro';
+import { site } from '../data/site';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+const FACEBOOK_URL = site.facebookUrl;
+const CONTACT_EMAIL = site.email;
+---
+
+<footer class="relative overflow-hidden bg-rotary-navy text-white">
+  <RotaryWheel class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 text-white/5 lg:h-96 lg:w-96" />
+
+  <div class="container-page relative grid gap-10 py-14 md:grid-cols-3">
+    <div>
+      <img
+        src="/images/logo-rotary-caransebes-light.png"
+        alt="Rotary Club Caransebeș"
+        class="h-10 w-auto"
+      />
+      <p class="mt-4 max-w-xs text-sm text-white/70">{t('footer.tagline')}</p>
+      <div class="mt-5 flex gap-3">
+        <a
+          href={FACEBOOK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-rotary-gold hover:text-rotary-navy"
+          aria-label="Facebook"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13.5 22v-8.5H16l.4-3.3h-2.9V8.1c0-.96.27-1.6 1.65-1.6H16.5V3.5c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.8 1.38-3.8 3.9v2.17H8v3.3h2.42V22h3.08z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="font-body text-sm font-bold uppercase tracking-wide text-rotary-gold">{t('footer.nav')}</h3>
+      <ul class="mt-4 space-y-2 text-sm text-white/80">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={localePath(lang, item.href)} class="hover:text-white">
+                {t(item.key as any)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-body text-sm font-bold uppercase tracking-wide text-rotary-gold">{t('footer.contact')}</h3>
+      <ul class="mt-4 space-y-3 text-sm text-white/80">
+        <li>
+          <a href={`mailto:${CONTACT_EMAIL}`} class="hover:text-white">{CONTACT_EMAIL}</a>
+        </li>
+        <li>{site.address}</li>
+        <li>
+          <span class="font-semibold text-white/90">{t('footer.meetings')}:</span>
+          <span class="block">{site.meeting[lang]}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-page flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/50 sm:flex-row">
+      <p>&copy; {year} Rotary Club Caransebeș. {t('footer.rights')}</p>
+      <p>Rotary International, {site.district}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,23 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+
+interface Props {
+  entry: CollectionEntry<'pages'>;
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const heading = entry.data.title.split(' — ')[0];
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <PageHero title={heading} intro={entry.data.description} />
+  <section class="py-12 sm:py-16">
+    <article
+      class="container-page prose prose-lg max-w-3xl prose-headings:font-display prose-headings:text-rotary-blue prose-a:text-rotary-azure prose-a:font-semibold prose-strong:text-rotary-navy prose-blockquote:border-rotary-gold prose-blockquote:bg-white prose-blockquote:py-1 prose-blockquote:not-italic prose-li:marker:text-rotary-gold"
+    >
+      <Content />
+    </article>
+  </section>
+</BaseLayout>

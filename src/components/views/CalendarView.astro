@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const locale = lang === 'ro' ? 'ro-RO' : 'en-GB';
+// Frontmatter dates have no timezone, so YAML reads them as UTC; format in UTC to show the time exactly as written.
+
+const events = await getCollection('events', (e) => e.data.lang === lang);
+const now = Date.now();
+const upcoming = events
+  .filter((e) => (e.data.endDate ?? e.data.date).valueOf() >= now)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const past = events
+  .filter((e) => (e.data.endDate ?? e.data.date).valueOf() < now)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const groups = [
+  { title: t('page.calendar.upcoming'), items: upcoming, muted: false },
+  { title: t('page.calendar.past'), items: past, muted: true },
+];
+---
+
+<BaseLayout title={`${t('nav.calendar')} — Rotary Club Caransebeș`} description={t('page.calendar.intro')}>
+  <PageHero title={t('nav.calendar')} intro={t('page.calendar.intro')} />
+
+  <section class="container-page flex flex-col gap-12 py-12 sm:py-16">
+    {
+      groups.map((group) => (
+        <div>
+          <h2 class="text-xl font-extrabold sm:text-2xl">{group.title}</h2>
+          {group.items.length === 0 ? (
+            <p class="mt-4 text-rotary-ink/60">{t('page.calendar.empty')}</p>
+          ) : (
+            <ul class="mt-6 flex flex-col gap-4">
+              {group.items.map((e) => (
+                <li class:list={['card flex gap-4 p-4 sm:gap-6 sm:p-5', { 'opacity-70': group.muted }]}>
+                  <div class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-rotary-blue text-white sm:h-20 sm:w-20">
+                    <span class="font-display text-2xl font-extrabold leading-none sm:text-3xl">{e.data.date.getUTCDate()}</span>
+                    <span class="mt-1 text-[10px] font-bold uppercase tracking-wider text-rotary-gold sm:text-xs">
+                      {e.data.date.toLocaleDateString(locale, { month: 'short', timeZone: 'UTC' })}
+                    </span>
+                  </div>
+                  <div class="min-w-0">
+                    <h3 class="font-display text-base font-bold text-rotary-blue sm:text-lg">{e.data.title}</h3>
+                    <p class="mt-1 text-xs text-rotary-ink/60 sm:text-sm">
+                      {e.data.date.toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+                      {' · '}
+                      {e.data.date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' })}
+                      {e.data.location && <> · {e.data.location}</>}
+                    </p>
+                    {e.data.excerpt && <p class="mt-2 text-sm text-rotary-ink/80">{e.data.excerpt}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

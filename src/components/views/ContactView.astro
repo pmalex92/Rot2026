@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { site } from '../../data/site';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const details = [
+  { label: t('page.contact.email'), value: site.email, href: `mailto:${site.email}` },
+  site.phone && { label: t('page.contact.phone'), value: site.phone, href: `tel:${site.phone.replace(/\s+/g, '')}` },
+  { label: t('page.contact.address'), value: site.address },
+  { label: t('footer.meetings'), value: site.meeting[lang] },
+].filter(Boolean) as { label: string; value: string; href?: string }[];
+---
+
+<BaseLayout title={`${t('nav.contact')} — Rotary Club Caransebeș`} description={t('page.contact.intro')}>
+  <PageHero title={t('nav.contact')} intro={t('page.contact.intro')} />
+
+  <section class="container-page grid gap-8 py-12 sm:py-16 lg:grid-cols-5">
+    <dl class="flex flex-col gap-4 lg:col-span-2">
+      {
+        details.map((d) => (
+          <div class="card p-5">
+            <dt class="section-eyebrow">{d.label}</dt>
+            <dd class="mt-1 font-semibold text-rotary-blue">
+              {d.href ? <a href={d.href} class="hover:text-rotary-azure">{d.value}</a> : d.value}
+            </dd>
+          </div>
+        ))
+      }
+      <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="btn-outline self-start">Facebook</a>
+    </dl>
+
+    <form id="contact-form" class="card flex flex-col gap-4 lg:col-span-3" data-email={site.email}>
+      <h2 class="text-xl font-extrabold">{t('page.contact.form.title')}</h2>
+      <label class="flex flex-col gap-1 text-sm font-semibold">
+        {t('page.contact.form.name')}
+        <input name="name" required autocomplete="name" class="rounded-xl border border-black/15 px-4 py-3 text-base font-normal focus:border-rotary-blue focus:outline-none focus:ring-2 focus:ring-rotary-blue/20" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm font-semibold">
+        {t('page.contact.form.message')}
+        <textarea name="message" required rows="5" class="rounded-xl border border-black/15 px-4 py-3 text-base font-normal focus:border-rotary-blue focus:outline-none focus:ring-2 focus:ring-rotary-blue/20"></textarea>
+      </label>
+      <button type="submit" class="btn-primary self-start">{t('page.contact.form.send')}</button>
+      <p class="text-xs text-rotary-ink/50">{t('page.contact.form.note')}</p>
+    </form>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '');
+    const message = String(data.get('message') ?? '');
+    const subject = encodeURIComponent(`Mesaj de pe site — ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name}`);
+    window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+  });
+</script>

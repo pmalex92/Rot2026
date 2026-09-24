@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const locale = lang === 'ro' ? 'ro-RO' : 'en-GB';
+
+const albums = (await getCollection('gallery', (e) => e.data.lang === lang)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title={`${t('nav.galerie')} — Rotary Club Caransebeș`} description={t('page.galerie.intro')}>
+  <PageHero title={t('nav.galerie')} intro={t('page.galerie.intro')} />
+
+  <section class="container-page flex flex-col gap-14 py-12 sm:py-16">
+    {albums.length === 0 && <p class="text-rotary-ink/60">{t('page.empty')}</p>}
+    {
+      albums.map((album) => (
+        <div id={album.id} class="scroll-mt-24">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 class="text-xl font-extrabold sm:text-2xl">{album.data.title}</h2>
+            <p class="text-sm text-rotary-ink/60">
+              {album.data.date.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
+              {album.data.images.length > 0 && <> · {album.data.images.length} {t('page.galerie.photos')}</>}
+            </p>
+          </div>
+          {album.data.images.length > 0 ? (
+            <div class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+              {album.data.images.map((src) => (
+                <a href={src} target="_blank" rel="noopener" class="group block aspect-square overflow-hidden rounded-xl bg-rotary-blue/5">
+                  <img src={src} alt={album.data.title} loading="lazy" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="mt-4 text-sm text-rotary-ink/60">{t('page.empty')}</p>
+          )}
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

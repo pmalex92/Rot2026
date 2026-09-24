@@ -1,0 +1,135 @@
+---
+import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+import { nav, donateItem } from '../data/navigation';
+import LangSwitch from './LangSwitch.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentPath =
+  (lang === 'ro' ? Astro.url.pathname : Astro.url.pathname.replace(/^\/en/, '')).replace(/\/$/, '') || '/';
+---
+
+<header class="sticky top-0 z-50 bg-rotary-blue shadow-md">
+  <div class="container-page flex h-16 items-center justify-between gap-4 xl:h-20 xl:max-w-7xl">
+    <a href={localePath(lang, '/')} class="flex shrink-0 items-center gap-2">
+      <img
+        src="/images/logo-rotary-caransebes-light.png"
+        alt="Rotary Club Caransebeș"
+        class="h-9 w-auto xl:h-11"
+        width="220"
+        height="70"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 xl:flex" aria-label="Principal">
+      <ul class="flex items-center gap-0.5 text-[13px] font-semibold text-white 2xl:text-sm">
+        {
+          nav.map((item) => (
+            <li class="group relative">
+              <a
+                href={localePath(lang, item.href)}
+                class:list={[
+                  'flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 transition hover:bg-white/10',
+                  { 'bg-white/15': currentPath === item.href || currentPath.startsWith(item.href + '/') },
+                ]}
+              >
+                {t(item.key as any)}
+                {item.children && (
+                  <svg class="h-3 w-3 opacity-70" viewBox="0 0 12 12" fill="currentColor">
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" />
+                  </svg>
+                )}
+              </a>
+              {item.children && (
+                <div class="invisible absolute left-0 top-full z-10 min-w-[220px] rounded-xl bg-white p-2 opacity-0 shadow-card ring-1 ring-black/5 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  {item.children.map((child) => (
+                    <a
+                      href={localePath(lang, child.href)}
+                      class="block rounded-lg px-3 py-2 text-sm font-medium text-rotary-ink hover:bg-rotary-cream hover:text-rotary-blue"
+                    >
+                      {t(child.key as any)}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+      <a href={localePath(lang, donateItem.href)} class="btn-primary ml-2 whitespace-nowrap px-5 py-2 text-xs">
+        {t(donateItem.key as any)}
+      </a>
+      <LangSwitch />
+    </nav>
+
+    <!-- Mobile controls -->
+    <div class="flex items-center gap-2 xl:hidden">
+      <LangSwitch />
+      <label
+        for="mobile-nav-toggle"
+        class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-white hover:bg-white/10"
+        aria-label="Meniu"
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+        </svg>
+      </label>
+    </div>
+  </div>
+</header>
+
+<input type="checkbox" id="mobile-nav-toggle" class="peer hidden" />
+<div class="fixed inset-0 z-40 hidden bg-black/40 peer-checked:block xl:hidden">
+  <label for="mobile-nav-toggle" class="absolute inset-0" aria-hidden="true"></label>
+</div>
+<div
+  class="fixed inset-y-0 right-0 z-50 w-[85%] max-w-sm translate-x-full overflow-y-auto bg-white shadow-2xl transition-transform duration-300 peer-checked:translate-x-0 xl:hidden"
+>
+  <div class="flex h-16 items-center justify-between border-b border-black/5 px-4">
+    <span class="font-display font-bold text-rotary-blue">Menu</span>
+    <label for="mobile-nav-toggle" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-rotary-ink hover:bg-black/5" aria-label="Închide meniul">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+      </svg>
+    </label>
+  </div>
+  <nav class="px-2 py-3" aria-label="Principal (mobil)">
+    <ul class="flex flex-col">
+      {
+        nav.map((item) =>
+          item.children ? (
+            <li>
+              <details class="group">
+                <summary class="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-3 font-semibold text-rotary-ink hover:bg-rotary-cream">
+                  {t(item.key as any)}
+                  <svg class="h-4 w-4 shrink-0 transition group-open:rotate-180" viewBox="0 0 12 12" fill="currentColor">
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" />
+                  </svg>
+                </summary>
+                <ul class="ml-3 border-l-2 border-rotary-gold/40 pl-3">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={localePath(lang, child.href)} class="block rounded-lg px-3 py-2 text-sm text-rotary-ink/80 hover:bg-rotary-cream hover:text-rotary-blue">
+                        {t(child.key as any)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <li>
+              <a href={localePath(lang, item.href)} class="block rounded-lg px-3 py-3 font-semibold text-rotary-ink hover:bg-rotary-cream">
+                {t(item.key as any)}
+              </a>
+            </li>
+          )
+        )
+      }
+    </ul>
+    <a href={localePath(lang, donateItem.href)} class="mt-4 flex w-full items-center justify-center rounded-full bg-rotary-gold px-6 py-3 text-sm font-bold text-rotary-navy">
+      {t(donateItem.key as any)}
+    </a>
+  </nav>
+</div>
