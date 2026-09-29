@@ -64,7 +64,7 @@ export const activeMembers: string[] = [
 // Foști președinți, cel mai recent an rotarian primul.
 export const pastPresidents: { year: string; name: string }[] = [
   { year: '2025–2026', name: 'Călin Lazăr' },
-  { year: '2024–2025', name: 'Parvu Tania Elena' },
+  { year: '2024–2025', name: 'Pârvu Tania Elena' },
   { year: '2023–2024', name: 'Mocanu Ciprian-Marian' },
   { year: '2022–2023', name: 'Zăt Ioan-Lucian' },
   { year: '2021–2022', name: 'Popescu Daniela' },

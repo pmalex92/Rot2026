@@ -11,6 +11,9 @@ export const donate: Record<
     title: string;
     intro: string;
     steps: { title: string; items: string[] };
+    taxTitle: string;
+    taxIntro: string;
+    tax: { id: string; badge: string; title: string; items: string[]; cta?: string }[];
     faqTitle: string;
     faq: { q: string; a: string }[];
     contactCta: string;
@@ -19,7 +22,7 @@ export const donate: Record<
   ro: {
     seoTitle: 'Donează pentru comunitatea din Caransebeș — Rotary Club Caransebeș',
     seoDescription:
-      'Donează prin transfer bancar către Rotary Club Caransebeș și susține bursa „Aripi pentru Viitor”, educația, sănătatea și tinerii din Caransebeș. IBAN, CIF și pașii pentru donație.',
+      'Donează către Rotary Club Caransebeș sau redirecționează 3,5% din impozit prin formularul 230 (CIF 22700404). Susține „Aripi pentru Viitor”, educația și sănătatea în Caransebeș.',
     eyebrow: 'Implică-te',
     title: 'Donează pentru comunitatea din Caransebeș',
     intro:
@@ -32,6 +35,34 @@ export const donate: Record<
         'La detalii plată scrie „Donație” sau numele proiectului, de exemplu „Aripi pentru Viitor”.',
       ],
     },
+    taxTitle: 'Susține-ne fără să te coste nimic',
+    taxIntro:
+      'Rotary Club Caransebeș este fundație înscrisă în Registrul entităților pentru care se acordă deduceri fiscale, așa că poți direcționa către noi o parte din impozitul pe care îl plătești oricum statului.',
+    tax: [
+      {
+        id: 'formular-230',
+        badge: 'Persoane fizice',
+        title: 'Redirecționează 3,5% din impozitul pe venit',
+        items: [
+          'Completează formularul 230 (salariați, pensionari) sau secțiunea dedicată din Declarația unică (venituri independente, chirii etc.).',
+          `Beneficiar: ${site.bank.beneficiary}, CIF ${site.bank.cif}, IBAN ${site.bank.iban}.`,
+          'Poți alege ca redirecționarea să fie valabilă 1 sau 2 ani.',
+          'Depune formularul online în Spațiul Privat Virtual ANAF, la ghișeu, prin poștă sau trimite-ni-l nouă și îl depunem noi. Termenul este 25 mai, pentru veniturile anului anterior.',
+        ],
+        cta: 'Cere formularul precompletat',
+      },
+      {
+        id: 'sponsorizare',
+        badge: 'Firme',
+        title: 'Sponsorizare deductibilă',
+        items: [
+          'Companiile pot scădea sponsorizarea din impozitul pe profit sau din impozitul microîntreprinderii, în limitele prevăzute de Codul fiscal.',
+          'Încheiem un contract de sponsorizare și îți trimitem toate documentele necesare contabilității.',
+          'Poți sponsoriza un proiect anume, de exemplu „Aripi pentru Viitor”, sau activitatea clubului în general.',
+        ],
+        cta: 'Discută cu noi o sponsorizare',
+      },
+    ],
     faqTitle: 'Întrebări frecvente despre donații',
     faq: [
       {
@@ -51,6 +82,14 @@ export const donate: Record<
         a: 'Este programul prin care Rotary Club Caransebeș susține trei elevi merituoși pe toată durata liceului, timp de 4 ani, astfel încât lipsa resurselor să nu îi oprească din studiu.',
       },
       {
+        q: 'Cum redirecționez 3,5% din impozit către Rotary Club Caransebeș?',
+        a: `Completezi formularul 230 (sau Declarația unică, dacă ai venituri independente) cu datele clubului: ${site.bank.beneficiary}, CIF ${site.bank.cif}, IBAN ${site.bank.iban}, și îl depui la ANAF până la 25 mai. Nu te costă nimic: suma provine din impozitul deja plătit statului. Dacă vrei, îți trimitem formularul precompletat și îl depunem noi.`,
+      },
+      {
+        q: 'Firma mea poate sponsoriza clubul?',
+        a: 'Da. Clubul este înscris în Registrul entităților pentru care se acordă deduceri fiscale, astfel că firmele pot scădea sponsorizarea din impozit, în limitele Codului fiscal. Scrie-ne și pregătim contractul de sponsorizare.',
+      },
+      {
         q: 'Pot dona și din străinătate?',
         a: `Da, printr-un transfer internațional către IBAN-ul clubului (${site.bank.bankName}, cod SWIFT/BIC BTRLRO22). Pentru orice detaliu scrie-ne la ${site.email}.`,
       },
@@ -64,7 +103,7 @@ export const donate: Record<
   en: {
     seoTitle: 'Donate to support Caransebeș, Romania — Rotary Club Caransebeș',
     seoDescription:
-      'Donate by bank transfer to Rotary Club Caransebeș and support the "Wings for the Future" scholarships, education, health care and young people in Caransebeș, Romania. IBAN and how to give.',
+      'Donate to Rotary Club Caransebeș by bank transfer or redirect 3.5% of your Romanian income tax (form 230, CIF 22700404). Support "Wings for the Future", education and health in Caransebeș.',
     eyebrow: 'Get involved',
     title: 'Donate to the Caransebeș community',
     intro:
@@ -77,6 +116,34 @@ export const donate: Record<
         'As payment reference write "Donation" or a project name, e.g. "Aripi pentru Viitor".',
       ],
     },
+    taxTitle: 'Support us at no cost to you',
+    taxIntro:
+      'Rotary Club Caransebeș is a foundation listed in the Romanian register of organisations eligible for tax deductions, so Romanian taxpayers can direct part of the tax they already pay to us.',
+    tax: [
+      {
+        id: 'formular-230',
+        badge: 'Individuals',
+        title: 'Redirect 3.5% of your income tax',
+        items: [
+          'Fill in form 230 (employees, pensioners) or the relevant section of the Declarația unică (self-employed, rental income, etc.).',
+          `Beneficiary: ${site.bank.beneficiary}, CIF ${site.bank.cif}, IBAN ${site.bank.iban}.`,
+          'You can choose for the redirection to apply for 1 or 2 years.',
+          'Submit it online through the ANAF Virtual Private Space, in person, by post, or send it to us and we will file it. The deadline is 25 May, for the previous year\'s income.',
+        ],
+        cta: 'Ask for a pre-filled form',
+      },
+      {
+        id: 'sponsorizare',
+        badge: 'Companies',
+        title: 'Tax-deductible sponsorship',
+        items: [
+          'Companies can deduct sponsorship from their profit tax or micro-enterprise tax, within the limits of the Romanian Fiscal Code.',
+          'We sign a sponsorship agreement and send you all the documents your accountant needs.',
+          'You can sponsor a specific project, such as "Wings for the Future", or the club\'s work in general.',
+        ],
+        cta: 'Talk to us about sponsorship',
+      },
+    ],
     faqTitle: 'Donation FAQ',
     faq: [
       {
@@ -94,6 +161,14 @@ export const donate: Record<
       {
         q: 'What is "Wings for the Future"?',
         a: 'It is the programme through which Rotary Club Caransebeș supports three deserving pupils throughout their four years of high school, so that a lack of means never stops their education.',
+      },
+      {
+        q: 'How do I redirect 3.5% of my income tax to Rotary Club Caransebeș?',
+        a: `Fill in form 230 (or the Declarația unică if you have self-employment income) with the club's details: ${site.bank.beneficiary}, CIF ${site.bank.cif}, IBAN ${site.bank.iban}, and file it with ANAF by 25 May. It costs you nothing: the amount comes from tax already paid to the state. We can also send you a pre-filled form and file it for you.`,
+      },
+      {
+        q: 'Can my company sponsor the club?',
+        a: 'Yes. The club is listed in the register of organisations eligible for tax deductions, so companies can deduct the sponsorship from their tax, within the limits of the Fiscal Code. Contact us and we will prepare the sponsorship agreement.',
       },
       {
         q: 'Can I donate from abroad?',
