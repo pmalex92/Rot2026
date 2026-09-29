@@ -31,22 +31,34 @@ Tot conținutul editabil este în fișiere Markdown, în `src/content/`. Fiecare
 | Proiecte (Realizări / Acțiuni) | `src/content/projects/` — `category: realizare` sau `actiune` |
 | Calendar | `src/content/events/` |
 | Membrii activi / Foști președinți | `src/data/members.ts` |
+| Pagina „20 de ani” (cronologie, cifre, mesaje) | `src/data/history.ts` + pozele în `public/images/istoric/` |
 | Textele paginii principale (hero, Cine suntem, Ce facem, Misiunea, Implică-te) | `src/data/home.ts` |
 | Email, întâlniri, date bancare, cifrele „Impactul nostru”, Facebook/Instagram, video-ul din hero (ID Vimeo) | `src/data/site.ts` |
 | Textele din interfață (meniu, butoane, titluri) | `src/i18n/ui.ts` |
 
 Pentru a adăuga, de exemplu, un proiect nou, copiază un fișier existent din `src/content/projects/`, schimbă-i numele și câmpurile din antet, apoi rulează `npm run build`.
 Numele fișierului devine adresa paginii: `premiem-excelenta.ro.md` → `/proiecte/premiem-excelenta` (și `/en/proiecte/premiem-excelenta` pentru `.en.md`).
-Proiectele cu `date` apar primele (cele mai noi întâi); cele fără dată sunt ordonate după `order`.
+Câmpuri utile în antetul unui proiect:
+
+- `date: 2024-02-23` (data exactă) sau `period: "2022–2025"` (afișat în locul datei) — proiectele cele mai recente apar primele; `order` departajează proiectele din același an;
+- `image` — fotografie mare (cel puțin ~1200px lățime), afișată pe tot cardul;
+- `thumb` — fotografie mică, afișată ca medalion când nu există una mare;
+- `draft: true` — proiectul nu apare pe site până nu e completat.
 Pozele se pun în `public/images/...` și se referă cu calea `/images/...`.
 
 > Fișierele numite `exemplu-*.md` și textele marcate „De completat” sunt conținut demonstrativ — înlocuiește-le cu informațiile reale ale clubului.
 
 ### Video-ul din hero
 
-Pagina principală folosește ca fundal un video Vimeo (`heroVimeoId` în `src/data/site.ts`), în modul „background”: pornește automat, fără sunet, în buclă, și funcționează și pe telefoane.
-Pentru vizitatorii care au activat „mișcare redusă” sau economisirea datelor, video-ul nu se încarcă și rămâne fundalul albastru.
-În setările video-ului pe Vimeo, la *Privacy → Embed*, trebuie permisă încorporarea (oriunde sau cel puțin pe `rotaryclubcaransebes.ro` și `localhost`).
+Pagina principală folosește ca fundal un video Vimeo (`heroVimeoId` în `src/data/site.ts`), în modul „background”: pornește automat, fără sunet, în buclă, și funcționează și pe telefoane. Un buton discret în colțul din dreapta-jos permite oprirea lui.
+Până pornește video-ul (sau dacă nu poate porni), se vede ilustrația Caransebeșului de pe coperta broșurii aniversare.
+
+Dacă video-ul nu apare:
+
+- în setările video-ului pe Vimeo, la *Privacy → Embed*, încorporarea trebuie permisă (oriunde, sau cel puțin pe `rotaryclubcaransebes.ro` și `localhost`);
+- modul „background” (fără butoane, în buclă) poate necesita un cont Vimeo plătit — verifică în contul Vimeo dacă opțiunile de încorporare permit redarea automată fără controale;
+- pe iPhone, în modul *Low Power*, iOS blochează redarea automată a oricărui video — se vede doar ilustrația;
+- în browser, consola (F12) afișează un mesaj `[hero video]` dacă player-ul Vimeo raportează o eroare.
 
 ## Configurare Facebook (secțiunea Știri)
 

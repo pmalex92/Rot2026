@@ -4,10 +4,10 @@ import type { Lang } from '../i18n/ui';
 type Feature = { icon: IconName; title: string; text: string };
 
 interface HomeContent {
-  hero: { eyebrow: string; title: string; since: string; text: string; ctaSupport: string; ctaJoin: string; scroll: string };
+  hero: { eyebrow: string; title: string; since: string; text: string; ctaSupport: string; ctaJoin: string; scroll: string; pauseVideo: string; playVideo: string };
   about: { eyebrow: string; title: string; paragraphs: string[]; cta: string };
   domains: { eyebrow: string; title: string; intro: string; items: Feature[] };
-  impact: { eyebrow: string; title: string; labels: { years: string; projects: string; beneficiaries: string; partners: string } };
+  impact: { eyebrow: string; title: string; labels: { years: string; projects: string; projectValueEur: string; beneficiaries: string; partners: string; areas: string } };
   mission: { eyebrow: string; title: string; paragraphs: string[]; values: Feature[] };
   projects: { eyebrow: string; title: string; intro: string; readMore: string; all: string };
   join: { eyebrow: string; title: string; text: string; meetings: string; map: string; ctaSupport: string; ctaJoin: string };
@@ -23,6 +23,8 @@ export const home: Record<Lang, HomeContent> = {
       ctaSupport: 'Susține un proiect',
       ctaJoin: 'Devino membru',
       scroll: 'Descoperă mai mult',
+      pauseVideo: 'Oprește video-ul',
+      playVideo: 'Pornește video-ul',
     },
     about: {
       eyebrow: 'Cine suntem',
@@ -51,8 +53,10 @@ export const home: Record<Lang, HomeContent> = {
       labels: {
         years: 'ani de activitate în comunitate',
         projects: 'proiecte implementate',
+        projectValueEur: 'valoarea proiectelor derulate',
         beneficiaries: 'beneficiari direcți',
         partners: 'parteneri și sponsori',
+        areas: 'arii de acțiune Rotary acoperite',
       },
     },
     mission: {
@@ -98,6 +102,8 @@ export const home: Record<Lang, HomeContent> = {
       ctaSupport: 'Support a project',
       ctaJoin: 'Become a member',
       scroll: 'Discover more',
+      pauseVideo: 'Pause video',
+      playVideo: 'Play video',
     },
     about: {
       eyebrow: 'Who we are',
@@ -126,8 +132,10 @@ export const home: Record<Lang, HomeContent> = {
       labels: {
         years: 'years of service in the community',
         projects: 'projects delivered',
+        projectValueEur: 'total value of projects',
         beneficiaries: 'direct beneficiaries',
         partners: 'partners and sponsors',
+        areas: 'Rotary areas of focus covered',
       },
     },
     mission: {

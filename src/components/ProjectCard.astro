@@ -2,7 +2,7 @@
 import RotaryWheel from './RotaryWheel.astro';
 import Icon from './Icon.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
-import { projectPath, formatDate, type Project } from '../lib/projects';
+import { projectPath, projectWhen, type Project } from '../lib/projects';
 
 interface Props {
   project: Project;
@@ -11,7 +11,8 @@ interface Props {
 const { project, readMore } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const { title, date, image, excerpt, category } = project.data;
+const { title, image, thumb, excerpt, category } = project.data;
+const when = projectWhen(project, lang);
 const href = localePath(lang, projectPath(project));
 ---
 
@@ -21,7 +22,17 @@ const href = localePath(lang, projectPath(project));
       image ? (
         <img src={image} alt="" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
       ) : (
-        <RotaryWheel class="absolute -bottom-10 -right-10 h-44 w-44 text-rotary-gold/25 transition duration-700 group-hover:rotate-45" />
+        <>
+          <RotaryWheel class="absolute -right-10 -bottom-10 h-44 w-44 text-rotary-gold/25 transition duration-700 group-hover:rotate-45" />
+          {thumb && (
+            <img
+              src={thumb}
+              alt=""
+              loading="lazy"
+              class="absolute bottom-4 left-4 h-24 w-32 rounded-xl object-cover shadow-lg ring-4 ring-white/90 transition duration-500 group-hover:scale-105"
+            />
+          )}
+        </>
       )
     }
     <span class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold tracking-wide text-rotary-blue uppercase">
@@ -29,7 +40,7 @@ const href = localePath(lang, projectPath(project));
     </span>
   </div>
   <div class="flex flex-1 flex-col gap-3 p-5">
-    {date && <time datetime={date.toISOString()} class="text-xs font-semibold text-rotary-ink/50">{formatDate(date, lang)}</time>}
+    {when && <p class="text-xs font-semibold text-rotary-ink/50">{when}</p>}
     <h3 class="text-lg leading-snug font-bold">
       <a href={href} class="after:absolute after:inset-0 group-hover:text-rotary-azure">{title}</a>
     </h3>

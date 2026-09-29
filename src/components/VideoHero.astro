@@ -4,15 +4,24 @@ import RotaryWheel from './RotaryWheel.astro';
 interface Props {
   vimeoId: string;
   title: string;
+  pauseLabel: string;
+  playLabel: string;
 }
-const { vimeoId, title } = Astro.props;
+const { vimeoId, title, pauseLabel, playLabel } = Astro.props;
 ---
 
 <section class="video-hero relative isolate flex overflow-hidden bg-rotary-navy text-white">
-  <!-- Shown while the video loads, and instead of it for reduced-motion / data-saver users. -->
-  <div class="absolute inset-0 -z-20 bg-gradient-to-br from-rotary-blue via-rotary-navy to-rotary-navy">
-    <RotaryWheel class="hero-wheel absolute -right-24 -top-24 h-[28rem] w-[28rem] text-white/10" />
-    <RotaryWheel class="absolute -bottom-32 -left-20 h-72 w-72 text-rotary-gold/10" />
+  <!-- Poster: visible while the video loads, and if it cannot play (e.g. iOS Low Power Mode). -->
+  <div class="absolute inset-0 -z-20 bg-rotary-navy">
+    <img
+      src="/images/hero-caransebes-1600.webp"
+      srcset="/images/hero-caransebes-800.webp 800w, /images/hero-caransebes-1600.webp 1600w"
+      sizes="100vw"
+      alt=""
+      fetchpriority="high"
+      class="h-full w-full object-cover opacity-30 mix-blend-luminosity"
+    />
+    <RotaryWheel class="hero-wheel absolute -top-24 -right-24 h-[28rem] w-[28rem] text-white/10" />
   </div>
 
   <div class="video-frame absolute inset-0 -z-10 overflow-hidden" data-vimeo-id={vimeoId} data-title={title} aria-hidden="true"></div>
@@ -20,6 +29,18 @@ const { vimeoId, title } = Astro.props;
   <div class="absolute inset-0 -z-10 bg-gradient-to-t from-rotary-navy via-rotary-navy/55 to-rotary-navy/30"></div>
 
   <slot />
+
+  <button
+    type="button"
+    class="video-toggle absolute right-4 bottom-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white/25"
+    data-pause-label={pauseLabel}
+    data-play-label={playLabel}
+    aria-label={pauseLabel}
+    hidden
+  >
+    <svg class="icon-pause h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+    <svg class="icon-play hidden h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>
+  </button>
 </section>
 
 <style>
@@ -40,6 +61,9 @@ const { vimeoId, title } = Astro.props;
     position: absolute;
     top: 50%;
     left: 50%;
+    /* Fallback for browsers without container query units. */
+    width: max(100vw, 177.78vh);
+    height: max(100vh, 56.25vw);
     width: max(100cqw, 177.78cqh);
     height: max(100cqh, 56.25cqw);
     transform: translate(-50%, -50%);
@@ -71,10 +95,6 @@ const { vimeoId, title } = Astro.props;
     const id = frame.dataset.vimeoId;
     if (!id) return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    if (reduceMotion || saveData) return;
-
     const params = new URLSearchParams({
       background: '1',
       autoplay: '1',
@@ -91,27 +111,43 @@ const { vimeoId, title } = Astro.props;
     iframe.tabIndex = -1;
     iframe.setAttribute('aria-hidden', 'true');
 
-    const reveal = () => iframe.classList.add('is-playing');
+    const toggle = frame.parentElement?.querySelector<HTMLButtonElement>('.video-toggle');
+    let paused = false;
+    const send = (method: string, value?: string) =>
+      iframe.contentWindow?.postMessage(JSON.stringify(value ? { method, value } : { method }), PLAYER_ORIGIN);
 
-    // Fade in only once frames are actually playing, to avoid a black flash while the player boots.
+    const reveal = () => {
+      iframe.classList.add('is-playing');
+      if (toggle) toggle.hidden = false;
+    };
+
+    toggle?.addEventListener('click', () => {
+      paused = !paused;
+      send(paused ? 'pause' : 'play');
+      toggle.setAttribute('aria-label', (paused ? toggle.dataset.playLabel : toggle.dataset.pauseLabel) ?? '');
+      toggle.querySelector('.icon-pause')?.classList.toggle('hidden', paused);
+      toggle.querySelector('.icon-play')?.classList.toggle('hidden', !paused);
+    });
+
+    // Fade in once frames are actually playing, to avoid a black flash while the player boots.
     window.addEventListener('message', (event) => {
       if (event.origin !== PLAYER_ORIGIN || event.source !== iframe.contentWindow) return;
-      let data: { event?: string };
+      let data: { event?: string; data?: { message?: string; name?: string } };
       try {
         data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
       } catch {
         return;
       }
       if (data?.event === 'ready') {
-        for (const name of ['play', 'playProgress', 'timeupdate']) {
-          iframe.contentWindow?.postMessage(JSON.stringify({ method: 'addEventListener', value: name }), PLAYER_ORIGIN);
-        }
+        for (const name of ['play', 'playProgress', 'timeupdate', 'error']) send('addEventListener', name);
       } else if (data?.event === 'play' || data?.event === 'playProgress' || data?.event === 'timeupdate') {
         reveal();
+      } else if (data?.event === 'error') {
+        console.warn('[hero video] Vimeo player error:', data.data?.name, data.data?.message);
       }
     });
     // Fallback in case player events are unavailable.
-    iframe.addEventListener('load', () => window.setTimeout(reveal, 3000));
+    iframe.addEventListener('load', () => window.setTimeout(reveal, 2500));
 
     frame.append(iframe);
   }

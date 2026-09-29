@@ -1,8 +1,13 @@
 ---
 lang: ro
-title: "Turneul de Șah, Cupa Rotary Caransebeș"
+title: "Cupa Rotary Șah — Turneul de Șah, Cupa Rotary Caransebeș"
 category: actiune
+date: 2021-08-03
 order: 1
+thumb: "/images/istoric/2021-sah.webp"
+excerpt: "O competiție care a adus în prim-plan spiritul fair-play-ului și performanța tinerilor."
 ---
 
-> **De completat:** copiază aici textul articolului de pe vechiul site, adaugă data (`date: AAAA-LL-ZZ`), un scurt rezumat (`excerpt`) și o imagine (`image: /images/proiecte/...`).
+Organizată la **3 august 2021**, **Cupa Rotary Șah** a adus în prim-plan spiritul fair-play-ului și susținerea performanței în rândul tinerilor.
+
+Turneul s-a desfășurat la Casa de Cultură „George Suru” din Caransebeș.

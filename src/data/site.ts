@@ -6,6 +6,7 @@ export const site = {
   email: 'secretariat@rotaryclubcaransebes.ro',
   phone: '',
   address: 'Caransebeș, jud. Caraș-Severin',
+  district: { ro: 'District 2241 România și Republica Moldova', en: 'District 2241 Romania and Republic of Moldova' },
   heroVimeoId: '1091412996',
   meeting: {
     ro: {
@@ -22,8 +23,10 @@ export const site = {
   stats: {
     years: 20,
     projects: 100,
+    projectValueEur: 500000,
     beneficiaries: 5000,
     partners: 50,
+    areas: 7,
   },
   bank: {
     beneficiary: 'Rotary Club Caransebeș',

@@ -31,9 +31,12 @@ const projects = defineCollection({
     title: z.string(),
     category: z.enum(['realizare', 'actiune']),
     date: z.coerce.date().optional(),
-    order: z.number().default(0), // tie-breaker for entries without a date (lower first)
-    image: z.string().optional(),
+    period: z.string().optional(), // shown instead of the date, e.g. "2024" or "2022–2025"
+    order: z.number().default(0), // tie-breaker within the same year (lower first)
+    image: z.string().optional(), // large photo (at least ~1200px wide)
+    thumb: z.string().optional(), // small photo, shown as a medallion when there is no large one
     excerpt: z.string().optional(),
+    draft: z.boolean().default(false), // hidden from the site until completed
   }),
 });
 

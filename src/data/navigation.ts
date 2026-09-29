@@ -11,8 +11,10 @@ export const nav: NavItem[] = [
     href: '/despre-noi',
     children: [
       { key: 'nav.despre.rotary', href: '/despre-noi' },
+      { key: 'nav.despre.aniversare', href: '/despre-noi/20-de-ani' },
       { key: 'nav.despre.membri', href: '/despre-noi/membri-activi' },
       { key: 'nav.despre.fostiPresedinti', href: '/despre-noi/fosti-presedinti' },
+      { key: 'nav.despre.interact', href: '/despre-noi/interact' },
     ],
   },
   { key: 'nav.fundatia', href: '/fundatia-rotary' },
