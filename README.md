@@ -31,7 +31,7 @@ Tot conținutul editabil este în fișiere Markdown, în `src/content/`. Fiecare
 | Proiecte (Realizări / Acțiuni) | `src/content/projects/` — `category: realizare` sau `actiune` |
 | Calendar | `src/content/events/` |
 | Membrii activi / Foști președinți | `src/data/members.ts` |
-| Pagina „20 de ani” (cronologie, cifre, mesaje) | `src/data/history.ts` + pozele în `public/images/istoric/` |
+| Pagina „20 de ani” (cronologie, cifre) | `src/data/history.ts` + pozele în `public/images/istoric/` |
 | Textele paginii principale (hero, Cine suntem, Ce facem, Misiunea, Implică-te) | `src/data/home.ts` |
 | Email, întâlniri, date bancare, cifrele „Impactul nostru”, Facebook/Instagram, video-ul din hero (ID Vimeo) | `src/data/site.ts` |
 | Textele din interfață (meniu, butoane, titluri) | `src/i18n/ui.ts` |

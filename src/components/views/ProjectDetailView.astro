@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import Icon from '../Icon.astro';
+import RotaryWheel from '../RotaryWheel.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../../i18n/utils';
 import { projectWhen, type Project } from '../../lib/projects';
 
@@ -13,13 +14,13 @@ const { project } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { Content } = await render(project);
-const { title, image, thumb, excerpt, category } = project.data;
+const { title, image, thumb, excerpt, category, cta, shareImage } = project.data;
 const when = projectWhen(project, lang);
 const categoryPath = category === 'realizare' ? '/proiecte/realizari' : '/proiecte/actiuni';
 const categoryLabel = t(category === 'realizare' ? 'nav.proiecte.realizari' : 'nav.proiecte.actiuni');
 ---
 
-<BaseLayout title={`${title} — Rotary Club Caransebeș`} description={excerpt ?? title} image={image}>
+<BaseLayout title={`${title} — Rotary Club Caransebeș`} description={excerpt ?? title} image={shareImage ?? image}>
   <PageHero title={title} intro={excerpt} eyebrow={when ? `${categoryLabel} · ${when}` : categoryLabel} />
 
   <article class="container-page max-w-3xl py-10 sm:py-14">
@@ -28,6 +29,19 @@ const categoryLabel = t(category === 'realizare' ? 'nav.proiecte.realizari' : 'n
     <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-rotary-blue prose-a:font-semibold prose-a:text-rotary-azure prose-blockquote:border-rotary-gold prose-blockquote:bg-white prose-blockquote:py-1 prose-blockquote:not-italic prose-img:rounded-xl">
       <Content />
     </div>
+    {
+      cta === 'donate' && (
+        <aside class="relative mt-12 overflow-hidden rounded-2xl bg-rotary-navy p-6 text-white shadow-card sm:p-10">
+          <RotaryWheel class="pointer-events-none absolute -right-12 -bottom-12 h-56 w-56 text-rotary-gold/15" />
+          <h2 class="relative text-2xl font-extrabold text-white sm:text-3xl">{t('project.cta.title')}</h2>
+          <p class="relative mt-3 max-w-xl text-white/80">{t('project.cta.text')}</p>
+          <div class="relative mt-6 flex flex-col gap-3 sm:flex-row">
+            <a href={localePath(lang, '/doneaza')} class="btn-primary">{t('nav.doneaza')}</a>
+            <a href={localePath(lang, '/contact')} class="btn-secondary">{t('project.cta.contact')}</a>
+          </div>
+        </aside>
+      )
+    }
     <a href={localePath(lang, categoryPath)} class="btn-outline mt-10">
       <Icon name="arrowRight" class="h-4 w-4 rotate-180" strokeWidth={2.2} />
       {categoryLabel}

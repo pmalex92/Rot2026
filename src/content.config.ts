@@ -37,6 +37,8 @@ const projects = defineCollection({
     thumb: z.string().optional(), // small photo, shown as a medallion when there is no large one
     excerpt: z.string().optional(),
     draft: z.boolean().default(false), // hidden from the site until completed
+    cta: z.enum(['donate']).optional(), // shows a "support this project" box at the end of the page
+    shareImage: z.string().optional(), // JPG/PNG used when the page is shared on social media
   }),
 });
 

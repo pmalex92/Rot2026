@@ -50,59 +50,6 @@ export const figures: { value: string; label: Text }[] = [
   { value: '20+', label: { ro: 'acțiuni sportive și de mediu', en: 'sports and environmental actions' } },
 ];
 
-export const messages: { author: string; role: Text; paragraphs: Record<Lang, string[]> }[] = [
-  {
-    author: 'Călin Lazăr',
-    role: { ro: 'Președinte Rotary Club Caransebeș, 2025–2026', en: 'President, Rotary Club Caransebeș, 2025–2026' },
-    paragraphs: {
-      ro: [
-        'Cu emoție și recunoștință marcăm 20 de ani de activitate ai Rotary Club Caransebeș, un drum început în 2006 și construit, pas cu pas, prin implicare, solidaritate și respect față de comunitate. Această aniversare este, înainte de toate, un moment de reflecție asupra binelui făcut împreună și asupra oamenilor care au dat sens fiecărui proiect, fiecărei inițiative și fiecărui gest de sprijin.',
-        'De-a lungul acestor două decenii, clubul nostru a fost prezent acolo unde a fost nevoie de speranță, de sprijin și de încredere: în sănătate, educație, social, cultură, mediu și în proiecte dedicate tinerilor. Fie că am susținut spitale, școli, copii, seniori, familii vulnerabile sau inițiative menite să apropie oamenii, am rămas fideli aceleiași convingeri: că adevărata forță a unei comunități stă în capacitatea ei de a fi solidară.',
-        'Privim cu respect către toți cei care au contribuit la această istorie: foști președinți, membri ai clubului, parteneri, sponsori, voluntari și prieteni ai Rotary. Fără încrederea, generozitatea și consecvența lor, această poveste nu ar fi fost posibilă.',
-        'La acest moment aniversar, mulțumim tuturor celor care au fost și rămân alături de Rotary Club Caransebeș. Cu aceeași responsabilitate și cu aceeași credință în puterea binelui făcut împreună, privim înainte și ne asumăm să continuăm această misiune cu seriozitate, discreție și devotament.',
-      ],
-      en: [
-        'With emotion and gratitude we mark 20 years of Rotary Club Caransebeș, a journey that began in 2006 and was built step by step through involvement, solidarity and respect for the community. This anniversary is, above all, a moment to reflect on the good we have done together and on the people who gave meaning to every project, every initiative and every gesture of support.',
-        'Over these two decades our club has been present wherever hope, support and trust were needed: in health, education, social support, culture, the environment and in projects for young people. Whether we supported hospitals, schools, children, seniors, vulnerable families or initiatives that bring people together, we stayed true to the same conviction: that the real strength of a community lies in its ability to stand together.',
-        'We look with respect to everyone who has contributed to this story: past presidents, club members, partners, sponsors, volunteers and friends of Rotary. Without their trust, generosity and consistency, this story would not have been possible.',
-        'At this anniversary, we thank everyone who has stood and still stands beside Rotary Club Caransebeș. With the same responsibility and the same faith in the power of doing good together, we look ahead and commit to continuing this mission with seriousness, discretion and dedication.',
-      ],
-    },
-  },
-  {
-    author: 'Andrei Botez',
-    role: { ro: 'Guvernator, District 2241 România și Republica Moldova, 2025–2026', en: 'Governor, District 2241 Romania and Republic of Moldova, 2025–2026' },
-    paragraphs: {
-      ro: [
-        'La aniversarea a 20 de ani de activitate a Rotary Club Caransebeș, adresez cele mai sincere felicitări tuturor celor care au contribuit, de-a lungul acestor două decenii, la construirea unei prezențe rotariene puternice, respectate și profund ancorate în viața comunității.',
-        'Douăzeci de ani înseamnă mai mult decât o succesiune de mandate, proiecte și evenimente. Înseamnă continuitate, încredere, responsabilitate și capacitatea de a transforma valorile Rotary în gesturi concrete, cu impact real asupra oamenilor. Prin activitatea sa, Rotary Club Caransebeș a demonstrat că spiritul de solidaritate, prietenia și dorința de a servi mai presus de sine pot deveni o forță autentică de bine în comunitate.',
-        'Aniversarea de astăzi este, în egală măsură, un moment de bilanț și un prilej de a privi înainte cu încredere. Sunt convins că Rotary Club Caransebeș va continua să inspire, să unească și să slujească această comunitate cu aceeași demnitate și aceeași energie care i-au definit parcursul până acum.',
-      ],
-      en: [
-        'On the 20th anniversary of Rotary Club Caransebeș, I extend my warmest congratulations to everyone who, over these two decades, has helped build a strong, respected Rotary presence deeply rooted in the life of the community.',
-        'Twenty years means more than a succession of terms, projects and events. It means continuity, trust, responsibility and the ability to turn Rotary values into concrete gestures with real impact on people. Through its work, Rotary Club Caransebeș has shown that solidarity, friendship and the wish to serve above self can become a genuine force for good in the community.',
-        "Today's anniversary is both a moment of reckoning and an occasion to look ahead with confidence. I am convinced that Rotary Club Caransebeș will continue to inspire, unite and serve this community with the same dignity and energy that have defined its journey so far.",
-      ],
-    },
-  },
-  {
-    author: 'Alin Sever Deteșan',
-    role: { ro: 'Asistent Guvernator, District 2241 România și Republica Moldova', en: 'Assistant Governor, District 2241 Romania and Republic of Moldova' },
-    paragraphs: {
-      ro: [
-        'Au trecut 20 de ani de când un grup de oameni cu spirit de voluntariat au pus bazele, în capitala Țării Gugulanilor, a unui club rotarian dedicat comunității. De-a lungul acestor ani, prin implicarea membrilor săi, clubul caransebeșean a dezvoltat numeroase proiecte, în valoare de peste 500.000 de euro, acoperind toate cele șapte arii de acțiune Rotary, cu o atenție deosebită acordată domeniilor sănătății, educației, socialului și culturii.',
-        'Unul dintre proiectele de suflet, cu impact pe termen lung, este înființarea clubului Interact. Aici, tinerii noștri, sub îndrumarea clubului Rotary, dezvoltă an de an acțiuni sociale și educaționale tot mai valoroase.',
-        'Felicit toți colegii pentru dăruirea și determinarea arătate în proiectele clubului, dar și pentru faptul că oferă pro bono unul dintre cele mai valoroase lucruri personale: timpul. Și, mai presus de toate, să vă bucurați de prietenia rotariană.',
-      ],
-      en: [
-        'Twenty years have passed since a group of people with a spirit of volunteering founded, in the capital of the Land of the Gugulans, a Rotary club dedicated to the community. Over these years, through the involvement of its members, the club has developed numerous projects worth more than 500,000 euros, covering all seven Rotary areas of focus, with particular attention to health, education, social support and culture.',
-        'One of the projects closest to our hearts, with long-term impact, is the founding of the Interact club. Here our young people, guided by the Rotary club, develop ever more valuable social and educational actions year after year.',
-        'I congratulate all my colleagues for the dedication and determination shown in the club’s projects, and for giving pro bono one of the most valuable things they have: their time. And, above all, enjoy the Rotary friendship.',
-      ],
-    },
-  },
-];
-
 export const eras: Era[] = [
   {
     id: 'inceputurile',
@@ -747,6 +694,16 @@ export const eras: Era[] = [
       },
       {
         year: '2026',
+        img: '2026-aripi-pentru-viitor',
+        project: 'aripi-pentru-viitor',
+        title: { ro: '„Aripi pentru Viitor”', en: '"Wings for the Future"' },
+        text: {
+          ro: 'Trei tineri merituoși primesc sprijin pe toată durata liceului, timp de 4 ani: rechizite, transport, cazare, echipamente IT, mentorat și orientare.',
+          en: 'Three deserving young people receive support throughout high school, for 4 years: supplies, transport, accommodation, IT equipment, mentoring and guidance.',
+        },
+      },
+      {
+        year: '2026',
         img: '2026-prim-ajutor',
         link: '/despre-noi/interact',
         title: { ro: 'Prim ajutor pentru tinerii din Interact', en: 'First aid training for Interact members' },
@@ -849,7 +806,6 @@ export const labels: Record<
     emblemEyebrow: string;
     emblemTitle: string;
     emblemText: string;
-    messagesTitle: string;
     thanksTitle: string;
     thanksText: string;
     teaserCta: string;
@@ -865,7 +821,6 @@ export const labels: Record<
     emblemTitle: 'Global Grant pentru Spitalul Municipal de Urgență Caransebeș',
     emblemText:
       'Un buget de 75.850 USD, cluburi partenere din Germania, Belgia, Austria și Serbia, 15 calculatoare, 15 imprimante multifuncționale, un defibrilator, mobilier, aparatură medicală și un bronhoscop Storz de 148.000 lei.',
-    messagesTitle: 'Mesaje aniversare',
     thanksTitle: 'Vă mulțumim!',
     thanksText:
       'Adresăm întreaga noastră recunoștință tuturor celor care au fost alături de Rotary Club Caransebeș: membri, foști președinți, parteneri, sponsori, colaboratori, voluntari și prieteni ai clubului. Cu aceeași credință în puterea solidarității, mergem mai departe.',
@@ -881,7 +836,6 @@ export const labels: Record<
     emblemTitle: 'Global Grant for the Caransebeș Municipal Emergency Hospital',
     emblemText:
       'A budget of USD 75,850, partner clubs from Germany, Belgium, Austria and Serbia, 15 computers, 15 multifunction printers, a defibrillator, furniture, medical equipment and a Storz bronchoscope worth 148,000 lei.',
-    messagesTitle: 'Anniversary messages',
     thanksTitle: 'Thank you!',
     thanksText:
       'We extend our deepest gratitude to everyone who has stood by Rotary Club Caransebeș: members, past presidents, partners, sponsors, collaborators, volunteers and friends of the club. With the same faith in the power of solidarity, we move forward.',

@@ -50,6 +50,18 @@ const reasons = home[lang].domains.items;
     </div>
 
     <div class="flex flex-col gap-6 lg:col-span-2">
+      <a
+        href={localePath(lang, '/proiecte/aripi-pentru-viitor')}
+        class="group card overflow-hidden p-0 ring-2 ring-rotary-gold/60 transition hover:-translate-y-1 hover:shadow-xl"
+      >
+        <img src="/images/proiecte/aripi-pentru-viitor.webp" alt="" loading="lazy" class="aspect-[16/8] w-full object-cover" />
+        <div class="p-6">
+          <p class="section-eyebrow">{t('page.doneaza.featured')}</p>
+          <h2 class="mt-2 text-lg font-extrabold">{t('page.doneaza.featuredTitle')}</h2>
+          <p class="mt-2 text-sm text-rotary-ink/75">{t('page.doneaza.featuredText')}</p>
+          <span class="mt-3 inline-block text-sm font-semibold text-rotary-azure group-hover:text-rotary-blue">{t('common.readMore')} →</span>
+        </div>
+      </a>
       <div class="card">
         <h2 class="text-lg font-extrabold">{t('page.doneaza.why')}</h2>
         <ul class="mt-4 flex flex-col gap-3 text-sm">
