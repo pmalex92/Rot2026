@@ -15,7 +15,7 @@ Sponsored by Rotary Club Caransebeș, **Interact Caransebeș** brings together y
 Through charity actions, educational initiatives and leadership experiences, Interact has become in recent years one of the liveliest expressions of the continuity of the Rotary spirit.
 
 - **Treasure Hunt** — organised in partnership with the County Museum of Ethnography and of the Border Regiment in Caransebeș, combining team spirit with a closer look at local history.
-- **Interact Super Ball** — an annual event supporting important cases in the community. In 2024 it raised 7,500 lei for Cristi and directed 12,000 lei to the Caransebeș Childhood Autism Association. [Details](/en/proiecte/super-balul-interact-2024) · [SuperBal 2026](/en/proiecte/superbal-interact-2026)
+- **Interact Super Ball** — an annual event supporting important cases in the community. In 2024 it raised 7,500 lei for Cristi and directed 12,000 lei to the Caransebeș Childhood Autism Association. [Details](/en/proiecte/super-balul-interact-2024/) · [SuperBal 2026](/en/proiecte/superbal-interact-2026/)
 - **Christmas for Everyone** — gifts for children and families in need.
 
 ## Training

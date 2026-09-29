@@ -15,4 +15,4 @@ Rotary brings together business people, professionals and community leaders who 
 - **Lasting friendships** — built on shared values: integrity, service, respect.
 - **A global network** — over 46,000 Rotary and Rotaract clubs in more than 200 countries and regions.
 
-If you want to turn your time and expertise into real change for the Caransebeș community, [find out how to join our club](/en/membership/admitere-in-club).
+If you want to turn your time and expertise into real change for the Caransebeș community, [find out how to join our club](/en/membership/admitere-in-club/).

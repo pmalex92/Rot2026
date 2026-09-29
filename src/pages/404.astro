@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RotaryWheel from '../components/RotaryWheel.astro';
+---
+
+<BaseLayout
+  title="Pagina nu a fost găsită — Rotary Club Caransebeș"
+  description="Pagina căutată nu există sau a fost mutată. Continuă de pe prima pagină a Rotary Club Caransebeș."
+  noindex
+>
+  <section class="relative overflow-hidden bg-rotary-blue text-white">
+    <RotaryWheel class="hero-wheel pointer-events-none absolute -top-24 -right-24 h-96 w-96 text-white/10" />
+    <div class="container-page relative py-20 sm:py-28">
+      <p class="section-eyebrow">404</p>
+      <h1 class="mt-2 text-3xl font-extrabold text-white sm:text-5xl">Pagina nu a fost găsită</h1>
+      <p class="mt-4 max-w-xl text-lg text-white/80">
+        Pagina pe care o cauți nu există sau a fost mutată. Poate te ajută una dintre paginile de mai jos.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="btn-primary">Prima pagină</a>
+        <a href="/proiecte/" class="btn-secondary">Proiectele noastre</a>
+        <a href="/doneaza/" class="btn-secondary">Donează</a>
+      </div>
+      <p class="mt-10 text-sm text-white/70">
+        Page not found. <a href="/en/" class="font-semibold text-rotary-gold underline underline-offset-4">Go to the English homepage</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

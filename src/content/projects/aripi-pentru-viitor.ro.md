@@ -31,6 +31,6 @@ Credem că educația poate schimba un destin. Iar uneori, pentru ca un tânăr s
 
 Poți susține proiectul „Aripi pentru Viitor” și poți contribui la cei 4 ani de liceu ai unui elev care are nevoie de sprijin pentru a-și continua educația. Orice contribuție înseamnă o șansă în plus: pentru educație, pentru dezvoltare și pentru un viitor construit prin propriile forțe.
 
-Găsești datele pentru donație pe pagina [Donează](/doneaza) — te rugăm să treci la mențiune „Aripi pentru Viitor”. Pentru orice detaliu, [scrie-ne](/contact) sau trimite-ne un mesaj privat pe [Facebook](https://www.facebook.com/RotaryClubCaransebes).
+Găsești datele pentru donație pe pagina [Donează](/doneaza/) — te rugăm să treci la mențiune „Aripi pentru Viitor”. Pentru orice detaliu, [scrie-ne](/contact/) sau trimite-ne un mesaj privat pe [Facebook](https://www.facebook.com/RotaryClubCaransebes).
 
 **Împreună putem da aripi unor visuri care merită să zboare.**

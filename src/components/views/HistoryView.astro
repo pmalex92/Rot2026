@@ -24,7 +24,7 @@ const itemHref = (item: TimelineItem) =>
         <source srcset="/images/aniversare-20-ani-700.webp 700w, /images/aniversare-20-ani-1200.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" />
         <img
           src="/images/aniversare-20-ani-1200.webp"
-          alt=""
+          alt={lang === 'ro' ? 'Ilustrație: Caransebeșul și oamenii comunității — 20 de ani de Rotary Club Caransebeș' : 'Illustration: Caransebeș and its community — 20 years of Rotary Club Caransebeș'}
           width="1200"
           height="900"
           class="w-full rounded-2xl shadow-card"
@@ -98,7 +98,7 @@ const itemHref = (item: TimelineItem) =>
                     {item.img && (
                       <img
                         src={`/images/istoric/${item.img}.webp`}
-                        alt=""
+                        alt={item.title[lang]}
                         loading="lazy"
                         class="h-20 w-20 shrink-0 rounded-xl object-cover sm:h-24 sm:w-32"
                       />

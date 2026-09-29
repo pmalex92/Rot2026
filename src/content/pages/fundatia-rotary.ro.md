@@ -21,4 +21,4 @@ Fundația Rotary (The Rotary Foundation) transformă darurile generoase ale dona
 
 Clubul nostru susține activ programele Fundației, atât prin contribuții financiare, cât și prin implicarea directă în proiecte globale (Global Grants) și subvenții districtuale (District Grants).
 
-Vrei să contribui? [Donează pentru proiectele noastre](/doneaza).
+Vrei să contribui? [Donează pentru proiectele noastre](/doneaza/).

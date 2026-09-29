@@ -21,4 +21,4 @@ The Rotary Foundation transforms donors' generous gifts into projects that chang
 
 Our club actively supports the Foundation's programs, both through financial contributions and through direct involvement in global grants and district grants.
 
-Want to contribute? [Donate to our projects](/en/doneaza).
+Want to contribute? [Donate to our projects](/en/doneaza/).

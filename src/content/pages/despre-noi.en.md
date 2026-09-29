@@ -9,11 +9,11 @@ description: "People of action serving Caransebeș since 2006, part of Rotary Di
 
 Founded in **2006**, Rotary Club Caransebeș is part of **District 2241 – Romania and Republic of Moldova** and brings together people united by one conviction: good done with seriousness, discretion and responsibility can truly change the life of a community.
 
-The club brings together professionals and local leaders who choose to dedicate their time, energy and resources to creating real change in our community. Over two decades, the club has built its identity through projects in education, health, social support, culture, environmental protection, sport and the formation of young people through our work with [Interact Caransebeș](/en/despre-noi/interact).
+The club brings together professionals and local leaders who choose to dedicate their time, energy and resources to creating real change in our community. Over two decades, the club has built its identity through projects in education, health, social support, culture, environmental protection, sport and the formation of young people through our work with [Interact Caransebeș](/en/despre-noi/interact/).
 
 At the heart of everything we do is the value that has defined and guided us from the very beginning: **Service Above Self**.
 
-[Discover the story of our 20 years (2006–2026)](/en/despre-noi/20-de-ani)
+[Discover the story of our 20 years (2006–2026)](/en/despre-noi/20-de-ani/)
 
 ## Our mission
 
@@ -59,4 +59,4 @@ Many of our projects were made possible by working with institutions, organisati
 
 Rotary Club Alba-Iulia · Arad Cetate · Buziaș · Câmpia Turzii · Cugir Anima Mundi · Hațeg · Jimbolia · Lugoj · Moșnița Nouă · Pitești · Reșița · Slatina · Timișoara · Timișoara 2023 · Timișoara Cetate · Timișoara Cosmopolitan · Timișoara Opera · Timișoara Ripensis · Turda Family
 
-Want to be part of the change? [Find out how to become a member](/en/membership/admitere-in-club).
+Want to be part of the change? [Find out how to become a member](/en/membership/admitere-in-club/).

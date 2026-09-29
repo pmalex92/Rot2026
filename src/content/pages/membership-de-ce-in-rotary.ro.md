@@ -15,4 +15,4 @@ Rotary reunește oameni de afaceri, profesioniști și lideri comunitari care cr
 - **Prietenii durabile** — construite pe valori comune: integritate, serviciu, respect.
 - **O rețea globală** — peste 46.000 de cluburi Rotary și Rotaract în peste 200 de țări și regiuni.
 
-Dacă vrei să transformi timpul și expertiza ta în schimbare reală pentru comunitatea din Caransebeș, [află cum te poți alătura clubului nostru](/membership/admitere-in-club).
+Dacă vrei să transformi timpul și expertiza ta în schimbare reală pentru comunitatea din Caransebeș, [află cum te poți alătura clubului nostru](/membership/admitere-in-club/).

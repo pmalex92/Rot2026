@@ -9,7 +9,7 @@ Being a Rotary member means being part of a global network of leaders who put th
 
 Explore the sections below to learn more:
 
-- [Why join Rotary](/en/membership/de-ce-in-rotary)
-- [Becoming a member](/en/membership/admitere-in-club)
-- [The Four-Way Test](/en/membership/testul-celor-4-cai)
-- [Code of conduct](/en/membership/codul-de-conduita)
+- [Why join Rotary](/en/membership/de-ce-in-rotary/)
+- [Becoming a member](/en/membership/admitere-in-club/)
+- [The Four-Way Test](/en/membership/testul-celor-4-cai/)
+- [Code of conduct](/en/membership/codul-de-conduita/)

@@ -15,7 +15,7 @@ Sub tutela Rotary Club Caransebeș, **Interact Caransebeș** reunește tineri ca
 Prin acțiuni caritabile, inițiative educaționale și experiențe de leadership, Interact a devenit, în ultimii ani, una dintre cele mai vii expresii ale continuității spiritului rotarian.
 
 - **Treasure Hunt** — organizat în parteneriat cu Muzeul Județean de Etnografie și al Regimentului de Graniță din Caransebeș, o acțiune care a îmbinat spiritul de echipă cu apropierea de istoria locală.
-- **Super Balul Interact** — un eveniment anual prin care sunt susținute cazuri importante din comunitate. În 2024 s-au strâns 7.500 lei pentru Cristi și au fost direcționați 12.000 lei către Asociația pentru Autism Infantil din Caransebeș. [Detalii](/proiecte/super-balul-interact-2024) · [SuperBal 2026](/proiecte/superbal-interact-2026)
+- **Super Balul Interact** — un eveniment anual prin care sunt susținute cazuri importante din comunitate. În 2024 s-au strâns 7.500 lei pentru Cristi și au fost direcționați 12.000 lei către Asociația pentru Autism Infantil din Caransebeș. [Detalii](/proiecte/super-balul-interact-2024/) · [SuperBal 2026](/proiecte/superbal-interact-2026/)
 - **Christmas for Everyone** — cadouri pentru copiii și familiile aflate în nevoie.
 
 ## Formare

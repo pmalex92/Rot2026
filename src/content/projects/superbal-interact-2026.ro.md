@@ -10,4 +10,4 @@ excerpt: "Organizat de Interact Caransebeș cu sprijinul clubului, balul a reuni
 
 **SuperBal 2026**, organizat de **Interact Caransebeș** și susținut de Rotary Club Caransebeș, a reunit tineri, energie și solidaritate într-un nou moment reprezentativ pentru generația care duce mai departe spiritul Rotary.
 
-Super Balul Interact este un eveniment anual prin care sunt susținute cazuri importante din comunitate. [Află mai multe despre Interact Caransebeș](/despre-noi/interact).
+Super Balul Interact este un eveniment anual prin care sunt susținute cazuri importante din comunitate. [Află mai multe despre Interact Caransebeș](/despre-noi/interact/).

@@ -12,9 +12,16 @@ export function useTranslations(lang: Lang) {
   };
 }
 
-/** Builds a localized path: localePath('ro', '/proiecte') -> '/proiecte', localePath('en', '/proiecte') -> '/en/proiecte' */
+/** Adds the trailing slash pages are served with, keeping any #hash or ?query: '/proiecte#x' -> '/proiecte/#x'. */
+export function withSlash(path: string): string {
+  const match = path.match(/^([^?#]*)(.*)$/)!;
+  const pathname = match[1].endsWith('/') ? match[1] : `${match[1]}/`;
+  return pathname + match[2];
+}
+
+/** Builds a localized path: localePath('ro', '/proiecte') -> '/proiecte/', localePath('en', '/proiecte') -> '/en/proiecte/' */
 export function localePath(lang: Lang, path: string): string {
-  const clean = path.startsWith('/') ? path : `/${path}`;
+  const clean = withSlash(path.startsWith('/') ? path : `/${path}`);
   if (lang === defaultLang) return clean;
   return `/${lang}${clean}`;
 }
@@ -24,7 +31,7 @@ export function switchLocalePath(url: URL, targetLang: Lang): string {
   const currentLang = getLangFromUrl(url);
   let path = url.pathname;
   if (currentLang !== defaultLang) {
-    path = path.replace(`/${currentLang}`, '') || '/';
+    path = path.slice(currentLang.length + 1) || '/';
   }
   return localePath(targetLang, path);
 }

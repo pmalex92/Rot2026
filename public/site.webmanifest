@@ -1,0 +1,12 @@
+{
+  "name": "Rotary Club Caransebeș",
+  "short_name": "Rotary Caransebeș",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf8f2",
+  "theme_color": "#0b2f63",
+  "icons": [
+    { "src": "/images/favicon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

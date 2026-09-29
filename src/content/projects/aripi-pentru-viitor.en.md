@@ -31,6 +31,6 @@ We believe education can change a life. And sometimes, for a young person to fol
 
 You can support "Wings for the Future" and contribute to the 4 years of high school of a pupil who needs help to continue their education. Every contribution is one more chance: for education, for growth and for a future built through their own efforts.
 
-You will find the donation details on the [Donate](/en/doneaza) page — please use the reference "Aripi pentru Viitor". For any details, [write to us](/en/contact) or send us a private message on [Facebook](https://www.facebook.com/RotaryClubCaransebes).
+You will find the donation details on the [Donate](/en/doneaza/) page — please use the reference "Aripi pentru Viitor". For any details, [write to us](/en/contact/) or send us a private message on [Facebook](https://www.facebook.com/RotaryClubCaransebes).
 
 **Together we can give wings to dreams that deserve to fly.**

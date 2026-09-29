@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rotaryclubcaransebes.ro/sitemap-index.xml

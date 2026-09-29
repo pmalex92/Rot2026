@@ -9,11 +9,11 @@ description: "Oameni de acțiune în slujba Caransebeșului din 2006, parte a Di
 
 Fondat în anul **2006**, Rotary Club Caransebeș face parte din **Districtul 2241 – România și Republica Moldova** și reunește oameni uniți de aceeași convingere: binele făcut cu seriozitate, discreție și responsabilitate poate schimba în mod real viața unei comunități.
 
-Clubul reunește profesioniști și lideri locali care aleg să își dedice timpul, energia și resursele pentru a crea schimbări reale în comunitatea noastră. De-a lungul celor două decenii de activitate, clubul și-a construit identitatea prin proiecte dedicate educației, sănătății, sprijinului social, culturii, protecției mediului, sportului și formării tinerelor generații prin colaborarea cu [Interact Caransebeș](/despre-noi/interact).
+Clubul reunește profesioniști și lideri locali care aleg să își dedice timpul, energia și resursele pentru a crea schimbări reale în comunitatea noastră. De-a lungul celor două decenii de activitate, clubul și-a construit identitatea prin proiecte dedicate educației, sănătății, sprijinului social, culturii, protecției mediului, sportului și formării tinerelor generații prin colaborarea cu [Interact Caransebeș](/despre-noi/interact/).
 
 În centrul tuturor acțiunilor noastre stă aceeași valoare care ne definește și ne călăuzește de la început: **A servi mai presus de sine însuși**.
 
-[Descoperă povestea celor 20 de ani (2006–2026)](/despre-noi/20-de-ani)
+[Descoperă povestea celor 20 de ani (2006–2026)](/despre-noi/20-de-ani/)
 
 ## Misiunea noastră
 
@@ -59,4 +59,4 @@ Multe dintre proiectele noastre au fost posibile datorită colaborării cu insti
 
 Rotary Club Alba-Iulia · Arad Cetate · Buziaș · Câmpia Turzii · Cugir Anima Mundi · Hațeg · Jimbolia · Lugoj · Moșnița Nouă · Pitești · Reșița · Slatina · Timișoara · Timișoara 2023 · Timișoara Cetate · Timișoara Cosmopolitan · Timișoara Opera · Timișoara Ripensis · Turda Family
 
-Vrei să faci parte din schimbare? [Află cum poți deveni membru](/membership/admitere-in-club).
+Vrei să faci parte din schimbare? [Află cum poți deveni membru](/membership/admitere-in-club/).

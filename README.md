@@ -21,6 +21,40 @@ npm run preview    # previzualizează build-ul final
 
 Nu este nevoie de PHP, Node sau bază de date pe server.
 
+### Setări recomandate pe server (viteză + SEO)
+
+Toate linkurile interne se termină cu `/` (ex. `/doneaza/`), exact cum sunt servite paginile, deci nu apare niciun redirect la click. Pe un VPS cu **nginx**:
+
+```nginx
+server {
+    server_name rotaryclubcaransebes.ro;
+    root /var/www/rotaryclubcaransebes.ro;   # conținutul lui dist/
+
+    # www → fără www (o singură adresă canonică pentru Google)
+    # (bloc separat: server_name www.rotaryclubcaransebes.ro; return 301 https://rotaryclubcaransebes.ro$request_uri;)
+
+    error_page 404 /404.html;
+    location / { try_files $uri $uri/ =404; }
+
+    # Fișierele din /_astro/ au hash în nume → pot fi ținute în cache un an.
+    location /_astro/ { expires 1y; add_header Cache-Control "public, immutable"; }
+    location /images/ { expires 30d; }
+
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml application/xml;
+}
+```
+
+Pe Apache (`.htaccess`) echivalentul minim este `ErrorDocument 404 /404.html`.
+
+După publicare, adaugă site-ul în **Google Search Console** și trimite `https://rotaryclubcaransebes.ro/sitemap-index.xml`. `robots.txt` indică deja sitemap-ul.
+
+### SEO
+
+- Titlul, descrierea și imaginea de share ale fiecărei pagini vin din frontmatter (`title`, `description`, `image`/`shareImage`).
+- Datele structurate (Organizație, breadcrumbs, articole de proiect, FAQ și acțiunea de donație) se generează automat — vezi `src/lib/seo.ts`.
+- Textele paginii **Donează** (titlu SEO, pași, întrebări frecvente) se editează în `src/data/donate.ts`.
+
 ## Actualizarea conținutului
 
 Tot conținutul editabil este în fișiere Markdown, în `src/content/`. Fiecare intrare are o versiune `.ro.md` și una `.en.md`.

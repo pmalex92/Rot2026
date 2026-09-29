@@ -4,6 +4,8 @@ import PageHero from '../PageHero.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../../i18n/utils';
 import { site } from '../../data/site';
 import { home } from '../../data/home';
+import { donate } from '../../data/donate';
+import { ORG_ID, SITE_URL } from '../../lib/seo';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,25 +18,75 @@ const rows = [
 ].filter((r) => r.value);
 
 const reasons = home[lang].domains.items;
+const copy = donate[lang];
+const pageUrl = new URL(localePath(lang, '/doneaza'), SITE_URL).href;
+const shareImage = '/images/proiecte/aripi-pentru-viitor-og.jpg';
+
+// Tells search engines this is the club's donation page and how to give.
+const jsonLd = [
+  {
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: copy.title,
+    description: copy.seoDescription,
+    inLanguage: lang === 'ro' ? 'ro-RO' : 'en-GB',
+    primaryImageOfPage: new URL(shareImage, SITE_URL).href,
+    about: { '@id': ORG_ID },
+    potentialAction: {
+      '@type': 'DonateAction',
+      name: copy.title,
+      recipient: { '@id': ORG_ID },
+      target: pageUrl,
+    },
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    inLanguage: lang === 'ro' ? 'ro-RO' : 'en-GB',
+    mainEntity: copy.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
 ---
 
-<BaseLayout title={`${t('nav.doneaza')} — Rotary Club Caransebeș`} description={t('page.doneaza.intro')}>
-  <PageHero title={t('nav.doneaza')} intro={t('page.doneaza.intro')} />
+<BaseLayout
+  title={copy.seoTitle}
+  description={copy.seoDescription}
+  image={shareImage}
+  imageAlt={t('page.doneaza.featuredTitle')}
+  jsonLd={jsonLd}
+>
+  <PageHero eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
 
   <section class="container-page grid gap-8 py-12 sm:py-16 lg:grid-cols-5">
     <div class="card lg:col-span-3">
       <h2 class="text-xl font-extrabold">{t('page.doneaza.bank')}</h2>
-      <dl class="mt-5 divide-y divide-black/5">
+      <h3 class="mt-4 text-sm font-bold uppercase tracking-wide text-rotary-azure">{copy.steps.title}</h3>
+      <ol class="mt-3 flex flex-col gap-2 text-sm text-rotary-ink/80">
+        {
+          copy.steps.items.map((step, i) => (
+            <li class="flex gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rotary-gold text-xs font-bold text-rotary-navy">{i + 1}</span>
+              <span class="pt-0.5">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <dl id="date-bancare" class="mt-4 scroll-mt-24 divide-y divide-black/5">
         {
           rows.map((r) => (
             <div class="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt class="text-xs font-bold uppercase tracking-wide text-rotary-ink/50">{r.label}</dt>
               <dd class="flex items-center gap-2 font-semibold text-rotary-blue">
-                <span class:list={[{ 'font-mono text-sm sm:text-base': r.copy }]}>{r.value}</span>
+                <span class:list={['[overflow-wrap:anywhere]', { 'font-mono text-sm sm:text-base': r.copy }]}>{r.value}</span>
                 {r.copy && (
                   <button
                     type="button"
-                    class="copy-btn rounded-full bg-rotary-gold/20 px-3 py-1 text-xs font-bold text-rotary-navy hover:bg-rotary-gold/40"
+                    class="copy-btn shrink-0 rounded-full bg-rotary-gold/20 px-3 py-1.5 text-xs font-bold text-rotary-navy transition hover:bg-rotary-gold/40 active:scale-95 active:bg-rotary-gold/60 data-[done]:bg-green-600 data-[done]:text-white"
                     data-copy={r.value.replace(/\s+/g, '')}
                     data-copied={t('page.doneaza.copied')}
                   >
@@ -54,7 +106,7 @@ const reasons = home[lang].domains.items;
         href={localePath(lang, '/proiecte/aripi-pentru-viitor')}
         class="group card overflow-hidden p-0 ring-2 ring-rotary-gold/60 transition hover:-translate-y-1 hover:shadow-xl"
       >
-        <img src="/images/proiecte/aripi-pentru-viitor.webp" alt="" loading="lazy" class="aspect-[16/8] w-full object-cover" />
+        <img src="/images/proiecte/aripi-pentru-viitor.webp" alt={t('page.doneaza.featuredTitle')} loading="lazy" class="aspect-[16/8] w-full object-cover" />
         <div class="p-6">
           <p class="section-eyebrow">{t('page.doneaza.featured')}</p>
           <h2 class="mt-2 text-lg font-extrabold">{t('page.doneaza.featuredTitle')}</h2>
@@ -84,15 +136,53 @@ const reasons = home[lang].domains.items;
       </div>
     </div>
   </section>
+
+  <section class="bg-rotary-cream py-12 sm:py-16" aria-labelledby="faq-title">
+    <div class="container-page max-w-3xl">
+      <h2 id="faq-title" class="text-2xl font-extrabold sm:text-3xl">{copy.faqTitle}</h2>
+      <div class="mt-6 flex flex-col gap-3">
+        {
+          copy.faq.map((item, i) => (
+            <details class="group rounded-2xl bg-white shadow-card ring-1 ring-black/5" open={i === 0}>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl p-5 font-semibold text-rotary-blue transition hover:bg-rotary-gold/10 active:bg-rotary-gold/20 [&::-webkit-details-marker]:hidden">
+                <h3 class="text-base">{item.q}</h3>
+                <svg class="h-5 w-5 shrink-0 text-rotary-gold transition group-open:rotate-45" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10 4v12M4 10h12" stroke-linecap="round" />
+                </svg>
+              </summary>
+              <p class="px-5 pb-5 text-sm leading-relaxed text-rotary-ink/80 [overflow-wrap:anywhere]">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="#date-bancare" class="btn-primary">{t('nav.doneaza')}</a>
+        <a href={localePath(lang, '/contact')} class="btn-outline">{copy.contactCta}</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <script>
   document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
     const original = btn.textContent;
     btn.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+      const text = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Older browsers / non-secure contexts: select the IBAN so it can be copied by hand.
+        const value = btn.previousElementSibling;
+        if (value) getSelection()?.selectAllChildren(value);
+        return;
+      }
       btn.textContent = btn.dataset.copied ?? '✓';
-      setTimeout(() => (btn.textContent = original), 1800);
+      btn.dataset.done = '';
+      navigator.vibrate?.(15);
+      setTimeout(() => {
+        btn.textContent = original;
+        delete btn.dataset.done;
+      }, 1800);
     });
   });
 </script>

@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+@import '@fontsource-variable/inter';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/800.css';
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
@@ -13,7 +16,7 @@
   --color-rotary-ink: #12213c;
 
   --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
   --shadow-card: 0 8px 24px -8px rgb(11 47 99 / 0.25);
 }
@@ -38,6 +41,27 @@
   summary,
   label[for] {
     cursor: pointer;
+  }
+  /* Our own pressed states replace the grey tap flash on mobile. */
+  a,
+  button,
+  summary,
+  label[for] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  a {
+    transition:
+      opacity 0.15s ease,
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+  a:active {
+    opacity: 0.6;
+  }
+  summary:active,
+  label[for]:active {
+    opacity: 0.7;
   }
 }
 
@@ -76,6 +100,92 @@
   .social-btn {
     @apply flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-rotary-gold hover:text-rotary-navy;
   }
+}
+
+/* Pressed feedback: buttons sink a little, clickable cards press in. */
+.btn-primary:active,
+.btn-secondary:active,
+.btn-outline:active,
+.social-btn:active {
+  opacity: 1;
+  transform: scale(0.96);
+  filter: brightness(0.93);
+}
+a.card:active,
+.card:has(a:active) {
+  opacity: 1;
+  transform: scale(0.985);
+  box-shadow: 0 4px 12px -6px rgb(11 47 99 / 0.3);
+}
+.card:has(a:active) a {
+  opacity: 1;
+}
+
+/* The link that started a navigation keeps looking pressed; buttons show a spinner. */
+a.is-navigating {
+  opacity: 0.7;
+}
+:is(.btn-primary, .btn-secondary, .btn-outline).is-navigating {
+  opacity: 1;
+  pointer-events: none;
+}
+:is(.btn-primary, .btn-secondary, .btn-outline).is-navigating::after {
+  content: '';
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Top progress bar while the next page loads. */
+#nav-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-rotary-gold), var(--color-rotary-gold2));
+  box-shadow: 0 0 8px rgb(242 169 0 / 0.7);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+#nav-progress.is-active {
+  opacity: 1;
+  animation: nav-progress 10s cubic-bezier(0.08, 0.8, 0.2, 1) forwards;
+}
+@keyframes nav-progress {
+  0% {
+    transform: scaleX(0);
+  }
+  8% {
+    transform: scaleX(0.4);
+  }
+  100% {
+    transform: scaleX(0.94);
+  }
+}
+
+/* Smooth cross-fade between pages in browsers that support it; the header stays put. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.2s;
+  }
+}
+.site-header {
+  view-transition-name: site-header;
 }
 
 /* Scroll reveal: only hides content once JS has confirmed it can reveal it again. */
