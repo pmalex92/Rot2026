@@ -1,0 +1,21 @@
+---
+import MemberCard from './MemberCard.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { Board } from '../data/members';
+
+interface Props {
+  board: Board;
+}
+const { board } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+// Keep rows full: 4 people -> 4 columns, 6 -> 3 columns.
+const cols = board.members.length % 4 === 0 ? 'sm:grid-cols-4' : 'sm:grid-cols-3';
+---
+
+<section class="container-page pt-12 sm:pt-16">
+  <h2 class="text-2xl font-extrabold sm:text-3xl">{t('board.title')} {board.year}</h2>
+  <ul class:list={['mt-6 grid grid-cols-2 gap-3 sm:gap-4', cols]}>
+    {board.members.map((m) => <MemberCard name={m.name} role={m.role[lang]} />)}
+  </ul>
+</section>

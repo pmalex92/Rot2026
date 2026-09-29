@@ -3,6 +3,7 @@ lang: ro
 path: despre-noi/interact
 title: "Interact Caransebeș — Rotary Club Caransebeș"
 description: "Generația care duce mai departe spiritul Rotary: clubul Interact, sub tutela Rotary Club Caransebeș."
+board: interact
 ---
 
 Sub tutela Rotary Club Caransebeș, **Interact Caransebeș** reunește tineri care învață să transforme energia, creativitatea și solidaritatea în proiecte pentru comunitate. Înființarea clubului Interact este unul dintre proiectele de suflet ale clubului, cu impact pe termen lung.
@@ -20,12 +21,3 @@ Prin acțiuni caritabile, inițiative educaționale și experiențe de leadershi
 ## Formare
 
 Tinerii au participat la **sesiuni practice de prim-ajutor**, la programe **RYLA** (Rotary Youth Leadership Awards) și la experiențe care dezvoltă leadershipul și responsabilitatea. În 2026, Interact confirmă o generație activă și implicată.
-
-## Board Interact Caransebeș (2025–2026)
-
-- **Ienea-Erimescu Alexandru** — Președinte
-- **Bianca Colceriu** — Vicepreședinte
-- **Cristian Cutițoi** — Secretar
-- **Nico Simona** — PR
-- **Alisia Tufiși** — Trezorier
-- **Loghin Denis** — Sergent

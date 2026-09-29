@@ -1,28 +1,64 @@
+import type { Lang } from '../i18n/ui';
+
+export interface BoardMember {
+  name: string;
+  role: Record<Lang, string>;
+}
+
+export interface Board {
+  year: string;
+  members: BoardMember[];
+}
+
+// Board-ul curent al Rotary Club Caransebeș (pagina Membrii activi).
+export const clubBoard: Board = {
+  year: '2026–2027',
+  members: [
+    { name: 'Mitică Apostu', role: { ro: 'Președinte', en: 'President' } },
+    { name: 'Alexandru Frenț', role: { ro: 'Secretar', en: 'Secretary' } },
+    { name: 'Cristian Havrileți-Smetana', role: { ro: 'Trezorier', en: 'Treasurer' } },
+    { name: 'Călin Lazăr', role: { ro: 'Asistent Guvernator', en: 'Assistant Governor' } },
+  ],
+};
+
+// Board-ul curent al clubului Interact Caransebeș (pagina Interact).
+export const interactBoard: Board = {
+  year: '2026–2027',
+  members: [
+    { name: 'Razvan Lucian', role: { ro: 'Președinte', en: 'President' } },
+    { name: 'Gabriel Albu', role: { ro: 'Secretar', en: 'Secretary' } },
+    { name: 'Davide Stanescu', role: { ro: 'Vicepreședinte', en: 'Vice President' } },
+    { name: 'Ruslana Valagiurgi', role: { ro: 'PR Manager', en: 'PR Manager' } },
+    { name: 'Nicu Bosioc', role: { ro: 'Trezorier', en: 'Treasurer' } },
+    { name: 'Albert Ioniță', role: { ro: 'Sergent', en: 'Sergeant-at-arms' } },
+  ],
+};
+
 // Membrii activi, în ordinea în care apar pe site.
 export const activeMembers: string[] = [
-  'Mariana Maftei',
-  'Ionel Goagă',
-  'Dan Tocut',
-  'Cristian Havrileți-Smetana',
-  'Alin Deteșan',
-  'Călin Lazăr',
-  'Lucian Zăt',
-  'Cecilia Clipa',
-  'Ciprian Mocanu',
-  'Aurel Văduva',
-  'Ioan Boba',
-  'Florin Damian',
-  'Șerban Petrișor Marin',
-  'Alexandra Franț',
-  'Mitiță Apostu',
-  'Mihai Popescu',
-  'Alexandru Frenț',
-  'Daniela Popescu',
-  'Corneliu Hrimiuc',
-  'Cristina Popescu',
-  'Alina Almăjan',
-  'Rujan Nicoleta',
+  'Almăjan Alina',
   'Arnăut Otilia',
+  'Apostu Mitică',
+  'Boba Ioan',
+  'Clipa Cecilia',
+  'Damian Florin',
+  'Deteșan Alin Sever',
+  'Franț Alexandra',
+  'Frenț Alexandru',
+  'Goagă Ionel',
+  'Havrileți-Smetana Cristian',
+  'Hrimiuc Corneliu',
+  'Lazăr Călin',
+  'Maftei Mariana',
+  'Marin Șerban Petrișor',
+  'Mocanu Ciprian-Marian',
+  'Popescu Cristina',
+  'Popescu Daniela',
+  'Popescu Mihai Alexandru',
+  'Rujan Nicoleta',
+  'Tocuț Dan Laurențiu',
+  'Văduva Aurel',
+  'Zăt Ioan-Lucian',
 ];
 
 // Foști președinți, cel mai recent an rotarian primul.

@@ -2,7 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import { activeMembers, pastPresidents } from '../../data/members';
+import MemberCard from '../MemberCard.astro';
+import BoardSection from '../BoardSection.astro';
+import { activeMembers, clubBoard, pastPresidents } from '../../data/members';
 
 interface Props {
   type: 'activ' | 'fost-presedinte';
@@ -13,32 +15,22 @@ const t = useTranslations(lang);
 
 const title = t(type === 'activ' ? 'nav.despre.membri' : 'nav.despre.fostiPresedinti');
 const intro = t(type === 'activ' ? 'page.membri.intro' : 'page.fostiPresedinti.intro');
-
-const initials = (name: string) =>
-  name
-    .split(/[\s-]+/)
-    .map((n) => n[0])
-    .slice(0, 2)
-    .join('')
-    .toLocaleUpperCase('ro-RO');
 ---
 
 <BaseLayout title={`${title} — Rotary Club Caransebeș`} description={intro}>
   <PageHero title={title} intro={intro} eyebrow={t('nav.despre')} />
 
+  {type === 'activ' && <BoardSection board={clubBoard} />}
+
   <section class="container-page py-12 sm:py-16">
     {
       type === 'activ' ? (
-        <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-          {activeMembers.map((name) => (
-            <li class="card flex flex-col items-center gap-3 p-4 text-center sm:p-5" data-reveal>
-              <span class="flex h-16 w-16 items-center justify-center rounded-full bg-rotary-blue font-display text-xl font-bold text-white ring-4 ring-rotary-gold/30 sm:h-20 sm:w-20 sm:text-2xl">
-                {initials(name)}
-              </span>
-              <p class="font-display leading-snug font-bold text-rotary-blue">{name}</p>
-            </li>
-          ))}
-        </ul>
+        <>
+          <h2 class="text-2xl font-extrabold sm:text-3xl">{t('nav.despre.membri')}</h2>
+          <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+            {activeMembers.map((name) => <MemberCard name={name} />)}
+          </ul>
+        </>
       ) : (
         <div class="mx-auto max-w-2xl">
           <div class="mb-6 hidden justify-between border-b border-black/10 pb-3 pl-8 text-xs sm:flex font-bold tracking-widest text-rotary-ink/50 uppercase">

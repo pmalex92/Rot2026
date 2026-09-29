@@ -21,6 +21,7 @@ const pages = defineCollection({
     path: z.string(), // URL path without leading slash and without /en prefix, e.g. "membership/admitere-in-club"
     title: z.string(),
     description: z.string(),
+    board: z.enum(['interact']).optional(), // shows the current board cards under the page header
   }),
 });
 

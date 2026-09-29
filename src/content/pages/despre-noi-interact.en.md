@@ -3,6 +3,7 @@ lang: en
 path: despre-noi/interact
 title: "Interact Caransebeș — Rotary Club Caransebeș"
 description: "The generation carrying the Rotary spirit forward: the Interact club sponsored by Rotary Club Caransebeș."
+board: interact
 ---
 
 Sponsored by Rotary Club Caransebeș, **Interact Caransebeș** brings together young people who learn to turn energy, creativity and solidarity into projects for the community. Founding the Interact club is one of the projects closest to the club's heart, with long-term impact.
@@ -20,12 +21,3 @@ Through charity actions, educational initiatives and leadership experiences, Int
 ## Training
 
 Young members have taken part in **practical first aid sessions**, **RYLA** programmes (Rotary Youth Leadership Awards) and experiences that build leadership and responsibility. In 2026, Interact confirms an active and engaged generation.
-
-## Interact Caransebeș Board (2025–2026)
-
-- **Ienea-Erimescu Alexandru** — President
-- **Bianca Colceriu** — Vice President
-- **Cristian Cutițoi** — Secretary
-- **Nico Simona** — PR
-- **Alisia Tufiși** — Treasurer
-- **Loghin Denis** — Sergeant-at-arms
