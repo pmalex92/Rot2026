@@ -66,6 +66,13 @@
     @apply rounded-2xl bg-white p-6 shadow-card ring-1 ring-black/5;
   }
 
+  /* The official wheel as a mask, so it takes the element's text color (e.g. text-white/10). */
+  .rotary-wheel {
+    background-color: currentColor;
+    -webkit-mask: url('/images/rotary-wheel.svg') center / contain no-repeat;
+    mask: url('/images/rotary-wheel.svg') center / contain no-repeat;
+  }
+
   .social-btn {
     @apply flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-rotary-gold hover:text-rotary-navy;
   }

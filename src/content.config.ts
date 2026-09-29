@@ -49,28 +49,4 @@ const events = defineCollection({
   }),
 });
 
-const members = defineCollection({
-  loader: md('members'),
-  schema: z.object({
-    lang,
-    type: z.enum(['activ', 'fost-presedinte']),
-    name: z.string(),
-    role: z.string().optional(),
-    years: z.string().optional(), // e.g. "2018-2019", only for past presidents
-    order: z.number().default(0),
-    photo: z.string().optional(),
-  }),
-});
-
-const gallery = defineCollection({
-  loader: md('gallery'),
-  schema: z.object({
-    lang,
-    title: z.string(),
-    date: z.coerce.date(),
-    cover: z.string().optional(),
-    images: z.array(z.string()).default([]),
-  }),
-});
-
-export const collections = { pages, projects, events, members, gallery };
+export const collections = { pages, projects, events };

@@ -35,7 +35,6 @@ export const nav: NavItem[] = [
     ],
   },
   { key: 'nav.calendar', href: '/calendar' },
-  { key: 'nav.galerie', href: '/galerie-foto' },
   { key: 'nav.stiri', href: '/stiri' },
   { key: 'nav.contact', href: '/contact' },
 ];

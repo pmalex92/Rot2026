@@ -30,8 +30,7 @@ Tot conținutul editabil este în fișiere Markdown, în `src/content/`. Fiecare
 | Despre noi, Fundația Rotary, paginile Membership | `src/content/pages/` |
 | Proiecte (Realizări / Acțiuni) | `src/content/projects/` — `category: realizare` sau `actiune` |
 | Calendar | `src/content/events/` |
-| Membrii activi / Foști președinți | `src/content/members/` — `type: activ` sau `fost-presedinte` |
-| Galerie foto | `src/content/gallery/` + pozele în `public/images/galerie/` |
+| Membrii activi / Foști președinți | `src/data/members.ts` |
 | Textele paginii principale (hero, Cine suntem, Ce facem, Misiunea, Implică-te) | `src/data/home.ts` |
 | Email, întâlniri, date bancare, cifrele „Impactul nostru”, Facebook/Instagram, video-ul din hero (ID Vimeo) | `src/data/site.ts` |
 | Textele din interfață (meniu, butoane, titluri) | `src/i18n/ui.ts` |
@@ -81,4 +80,5 @@ Variante:
   ```bash
   node scripts/generate-brand-assets.mjs
   ```
+- Roata Rotary folosită decorativ: `public/images/rotary-wheel.svg` (aplicată ca mască, deci ia culoarea textului din jur — componenta `RotaryWheel.astro`).
 - Culorile și fonturile sunt definite în `src/styles/global.css` (blocul `@theme`).
