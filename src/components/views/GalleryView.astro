@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { entrySlug } from '../../lib/projects';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -20,7 +21,7 @@ const albums = (await getCollection('gallery', (e) => e.data.lang === lang)).sor
     {albums.length === 0 && <p class="text-rotary-ink/60">{t('page.empty')}</p>}
     {
       albums.map((album) => (
-        <div id={album.id} class="scroll-mt-24">
+        <div id={entrySlug(album.id)} class="scroll-mt-24">
           <div class="flex flex-wrap items-baseline justify-between gap-2">
             <h2 class="text-xl font-extrabold sm:text-2xl">{album.data.title}</h2>
             <p class="text-sm text-rotary-ink/60">

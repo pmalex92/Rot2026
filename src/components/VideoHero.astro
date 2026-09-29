@@ -1,0 +1,120 @@
+---
+import RotaryWheel from './RotaryWheel.astro';
+
+interface Props {
+  vimeoId: string;
+  title: string;
+}
+const { vimeoId, title } = Astro.props;
+---
+
+<section class="video-hero relative isolate flex overflow-hidden bg-rotary-navy text-white">
+  <!-- Shown while the video loads, and instead of it for reduced-motion / data-saver users. -->
+  <div class="absolute inset-0 -z-20 bg-gradient-to-br from-rotary-blue via-rotary-navy to-rotary-navy">
+    <RotaryWheel class="hero-wheel absolute -right-24 -top-24 h-[28rem] w-[28rem] text-white/10" />
+    <RotaryWheel class="absolute -bottom-32 -left-20 h-72 w-72 text-rotary-gold/10" />
+  </div>
+
+  <div class="video-frame absolute inset-0 -z-10 overflow-hidden" data-vimeo-id={vimeoId} data-title={title} aria-hidden="true"></div>
+
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-rotary-navy via-rotary-navy/55 to-rotary-navy/30"></div>
+
+  <slot />
+</section>
+
+<style>
+  .video-hero {
+    min-height: calc(100svh - 4rem);
+  }
+  @media (min-width: 80rem) {
+    .video-hero {
+      min-height: min(calc(100svh - 5rem), 60rem);
+    }
+  }
+
+  .video-frame {
+    container-type: size;
+  }
+  /* Cover the hero with a 16:9 video regardless of the hero's aspect ratio. */
+  .video-frame :global(iframe) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100cqw, 177.78cqh);
+    height: max(100cqh, 56.25cqw);
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .video-frame :global(iframe.is-playing) {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.hero-wheel) {
+      animation: hero-spin 90s linear infinite;
+    }
+  }
+  @keyframes hero-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  const PLAYER_ORIGIN = 'https://player.vimeo.com';
+
+  function mountVideo(frame: HTMLElement) {
+    const id = frame.dataset.vimeoId;
+    if (!id) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    if (reduceMotion || saveData) return;
+
+    const params = new URLSearchParams({
+      background: '1',
+      autoplay: '1',
+      loop: '1',
+      muted: '1',
+      autopause: '0',
+      playsinline: '1',
+      dnt: '1',
+    });
+    const iframe = document.createElement('iframe');
+    iframe.src = `${PLAYER_ORIGIN}/video/${id}?${params}`;
+    iframe.title = frame.dataset.title ?? '';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.tabIndex = -1;
+    iframe.setAttribute('aria-hidden', 'true');
+
+    const reveal = () => iframe.classList.add('is-playing');
+
+    // Fade in only once frames are actually playing, to avoid a black flash while the player boots.
+    window.addEventListener('message', (event) => {
+      if (event.origin !== PLAYER_ORIGIN || event.source !== iframe.contentWindow) return;
+      let data: { event?: string };
+      try {
+        data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+      } catch {
+        return;
+      }
+      if (data?.event === 'ready') {
+        for (const name of ['play', 'playProgress', 'timeupdate']) {
+          iframe.contentWindow?.postMessage(JSON.stringify({ method: 'addEventListener', value: name }), PLAYER_ORIGIN);
+        }
+      } else if (data?.event === 'play' || data?.event === 'playProgress' || data?.event === 'timeupdate') {
+        reveal();
+      }
+    });
+    // Fallback in case player events are unavailable.
+    iframe.addEventListener('load', () => window.setTimeout(reveal, 3000));
+
+    frame.append(iframe);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-vimeo-id]').forEach(mountVideo);
+</script>

@@ -3,7 +3,16 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const lang = z.enum(['ro', 'en']);
-const md = (dir: string) => glob({ pattern: '**/*.md', base: `./src/content/${dir}` });
+// Files are named `<slug>.<lang>.md`; ids become `<lang>/<slug>` so both translations can share a slug.
+const md = (dir: string) =>
+  glob({
+    pattern: '**/*.md',
+    base: `./src/content/${dir}`,
+    generateId: ({ entry }) => {
+      const match = entry.match(/^(.+)\.(ro|en)\.md$/);
+      return match ? `${match[2]}/${match[1]}` : entry.replace(/\.md$/, '');
+    },
+  });
 
 const pages = defineCollection({
   loader: md('pages'),
@@ -21,10 +30,10 @@ const projects = defineCollection({
     lang,
     title: z.string(),
     category: z.enum(['realizare', 'actiune']),
-    date: z.coerce.date(),
+    date: z.coerce.date().optional(),
+    order: z.number().default(0), // tie-breaker for entries without a date (lower first)
     image: z.string().optional(),
-    excerpt: z.string(),
-    featured: z.boolean().default(false),
+    excerpt: z.string().optional(),
   }),
 });
 

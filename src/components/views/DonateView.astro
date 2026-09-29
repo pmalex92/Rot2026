@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../../i18n/utils';
 import { site } from '../../data/site';
+import { home } from '../../data/home';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -11,10 +12,10 @@ const rows = [
   { label: t('page.doneaza.beneficiary'), value: site.bank.beneficiary },
   { label: t('page.doneaza.iban'), value: site.bank.iban, copy: true },
   { label: t('page.doneaza.bankName'), value: site.bank.bankName },
-  { label: t('page.doneaza.cui'), value: site.bank.cui },
+  { label: t('page.doneaza.cui'), value: site.bank.cif },
 ].filter((r) => r.value);
 
-const reasons = [t('page.doneaza.why1'), t('page.doneaza.why2'), t('page.doneaza.why3')];
+const reasons = home[lang].domains.items;
 ---
 
 <BaseLayout title={`${t('nav.doneaza')} — Rotary Club Caransebeș`} description={t('page.doneaza.intro')}>
@@ -55,8 +56,10 @@ const reasons = [t('page.doneaza.why1'), t('page.doneaza.why2'), t('page.doneaza
           {
             reasons.map((reason) => (
               <li class="flex gap-3">
-                <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-rotary-gold" />
-                {reason}
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-rotary-gold" />
+                <span>
+                  <strong class="text-rotary-blue">{reason.title}</strong> — {reason.text}
+                </span>
               </li>
             ))
           }

@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import { site } from '../../data/site';
+import { site, mapUrl } from '../../data/site';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,9 +10,9 @@ const t = useTranslations(lang);
 const details = [
   { label: t('page.contact.email'), value: site.email, href: `mailto:${site.email}` },
   site.phone && { label: t('page.contact.phone'), value: site.phone, href: `tel:${site.phone.replace(/\s+/g, '')}` },
-  { label: t('page.contact.address'), value: site.address },
-  { label: t('footer.meetings'), value: site.meeting[lang] },
-].filter(Boolean) as { label: string; value: string; href?: string }[];
+  { label: t('footer.meetings'), value: site.meeting[lang].when },
+  { label: t('page.contact.meetingPlace'), value: site.meeting[lang].where, href: mapUrl, external: true },
+].filter(Boolean) as { label: string; value: string; href?: string; external?: boolean }[];
 ---
 
 <BaseLayout title={`${t('nav.contact')} — Rotary Club Caransebeș`} description={t('page.contact.intro')}>
@@ -24,13 +24,33 @@ const details = [
         details.map((d) => (
           <div class="card p-5">
             <dt class="section-eyebrow">{d.label}</dt>
-            <dd class="mt-1 font-semibold text-rotary-blue">
-              {d.href ? <a href={d.href} class="hover:text-rotary-azure">{d.value}</a> : d.value}
+            <dd class="mt-1 font-semibold text-rotary-blue [overflow-wrap:anywhere]">
+              {d.href ? (
+                <a
+                  href={d.href}
+                  class="break-words hover:text-rotary-azure"
+                  {...(d.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {d.href.startsWith('mailto:') ? (
+                    <>
+                      {d.value.split('@')[0]}@<wbr />
+                      {d.value.split('@')[1]}
+                    </>
+                  ) : (
+                    d.value
+                  )}
+                </a>
+              ) : (
+                d.value
+              )}
             </dd>
           </div>
         ))
       }
-      <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="btn-outline self-start">Facebook</a>
+      <div class="flex flex-wrap gap-3">
+        <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">Facebook</a>
+        <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">Instagram</a>
+      </div>
     </dl>
 
     <form id="contact-form" class="card flex flex-col gap-4 lg:col-span-3" data-email={site.email}>

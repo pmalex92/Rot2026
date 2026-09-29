@@ -20,6 +20,7 @@ const alternates = (['ro', 'en'] as const).map((l) => ({ lang: l, href: new URL(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.png" />
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
@@ -43,5 +44,23 @@ const alternates = (['ro', 'en'] as const).map((l) => ({ lang: l, href: new URL(
       <slot />
     </main>
     <Footer />
+    <script>
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px' }
+        );
+        targets.forEach((el) => observer.observe(el));
+      } else {
+        targets.forEach((el) => el.classList.add('is-visible'));
+      }
+    </script>
   </body>
 </html>

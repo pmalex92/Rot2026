@@ -1,35 +1,42 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import RotaryWheel from './RotaryWheel.astro';
+import Icon from './Icon.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+import { projectPath, formatDate, type Project } from '../lib/projects';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
-  href: string;
+  project: Project;
+  readMore: string;
 }
-const { project, href } = Astro.props;
+const { project, readMore } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { title, date, image, excerpt, category } = project.data;
+const href = localePath(lang, projectPath(project));
 ---
 
-<article class="card flex flex-col overflow-hidden p-0">
-  {
-    image && (
-      <div class="aspect-[16/10] overflow-hidden bg-rotary-blue/5">
-        <img src={image} alt="" loading="lazy" class="h-full w-full object-cover" />
-      </div>
-    )
-  }
-  <div class="flex flex-1 flex-col gap-3 p-5">
-    <span class="section-eyebrow">
-      {category === 'realizare' ? t('nav.proiecte.realizari') : t('nav.proiecte.actiuni')}
+<article class="group card relative flex flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-xl">
+  <div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-rotary-blue to-rotary-navy">
+    {
+      image ? (
+        <img src={image} alt="" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+      ) : (
+        <RotaryWheel class="absolute -bottom-10 -right-10 h-44 w-44 text-rotary-gold/25 transition duration-700 group-hover:rotate-45" />
+      )
+    }
+    <span class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold tracking-wide text-rotary-blue uppercase">
+      {t(category === 'realizare' ? 'nav.proiecte.realizari' : 'nav.proiecte.actiuni')}
     </span>
-    <h3 class="text-lg font-bold text-rotary-blue">
-      <a href={localePath(lang, href)} class="hover:text-rotary-azure">{title}</a>
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    {date && <time datetime={date.toISOString()} class="text-xs font-semibold text-rotary-ink/50">{formatDate(date, lang)}</time>}
+    <h3 class="text-lg leading-snug font-bold">
+      <a href={href} class="after:absolute after:inset-0 group-hover:text-rotary-azure">{title}</a>
     </h3>
-    <p class="flex-1 text-sm text-rotary-ink/70">{excerpt}</p>
-    <time class="text-xs text-rotary-ink/50">
-      {date.toLocaleDateString(lang === 'ro' ? 'ro-RO' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-    </time>
+    {excerpt && <p class="text-sm text-rotary-ink/70">{excerpt}</p>}
+    <span class="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-rotary-gold">
+      {readMore}
+      <Icon name="arrowRight" class="h-4 w-4 transition group-hover:translate-x-1" strokeWidth={2.2} />
+    </span>
   </div>
 </article>

@@ -2,23 +2,31 @@
 lang: ro
 path: despre-noi
 title: "Despre noi — Rotary Club Caransebeș"
-description: "Istoria, misiunea și valorile Rotary Club Caransebeș, parte a familiei globale Rotary International."
+description: "Oameni de acțiune în slujba Caransebeșului din 2006, parte a familiei globale Rotary International."
 ---
 
-> **De completat:** înlocuiește textul de mai jos cu istoricul real al clubului (anul înființării, fondatori, momente cheie, numărul cartei).
+## Oameni de acțiune pentru Caransebeș
 
-Rotary Club Caransebeș face parte din marea familie Rotary International, o rețea globală de peste 1,2 milioane de lideri de afaceri, profesioniști și voluntari care lucrează împreună pentru a crea o schimbare durabilă în comunitățile lor și în lume.
+Rotary Club Caransebeș reunește profesioniști și lideri locali care aleg să își dedice timpul, energia și resursele pentru a crea schimbări reale în comunitatea noastră.
 
-## Cine suntem
-
-Clubul nostru reunește oameni din Caransebeș și din zona Banatului montan — antreprenori, profesioniști liberali, cadre didactice, medici — uniți de aceeași dorință: să contribuie activ la binele comunității din care fac parte.
+Prin proiecte sustenabile, parteneriate solide și implicare constantă, aducem speranță, educație și sprijin acolo unde este cea mai mare nevoie. Suntem în slujba Caransebeșului din 2006.
 
 ## Misiunea noastră
 
-Ne ghidăm după motto-ul rotarian **"Service Above Self"** — Serviciu mai presus de sine — și acționăm în cele patru domenii majore ale serviciului rotarian: în cadrul clubului, în profesie, în comunitate și la nivel internațional.
+Misiunea Rotary este să creeze schimbare durabilă – la nivel local, național și global – prin proiecte care sprijină educația, sănătatea, mediul înconjurător, tinerii și valorile etice.
 
-## Ce facem
+În Caransebeș, punem accent pe **solidaritate, integritate și prietenie**, după motto-ul rotarian **„Service Above Self”**.
 
-Prin proiectele noastre susținem educația, sănătatea, protecția mediului și dezvoltarea comunitară locală, colaborând cu autoritățile locale, alte organizații non-guvernamentale și cu celelalte cluburi Rotary din district.
+## Domeniile noastre de implicare
 
-Dacă împărtășești aceste valori și vrei să faci parte din echipa noastră, [află cum poți deveni membru](/membership/admitere-in-club).
+- **Educație** — burse, resurse și inițiative care susțin performanța și accesul egal.
+- **Sănătate** — sprijin pentru accesul la servicii medicale, acolo unde resursele sunt limitate.
+- **Comunitate** — proiecte care aduc oamenii împreună și răspund direct nevoilor locale.
+- **Tineret** — programe de leadership, mentorat și implicare civică.
+- **Cultură** — promovarea valorilor culturale și a inițiativelor care definesc identitatea comunității.
+
+## Întâlnirile clubului
+
+Ne întâlnim **în fiecare marți, la ora 19:00**, la Casa de Cultură „George Suru”, Str. Episcopiei nr. 6, Caransebeș. Invitații sunt bineveniți.
+
+Vrei să faci parte din schimbare? [Află cum poți deveni membru](/membership/admitere-in-club).
