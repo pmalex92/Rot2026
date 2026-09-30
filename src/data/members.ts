@@ -3,6 +3,8 @@ import type { Lang } from '../i18n/ui';
 export interface BoardMember {
   name: string;
   role: Record<Lang, string>;
+  /** Portret pătrat din public/images/membri/ (opțional; fără poză se afișează inițialele). */
+  photo?: string;
 }
 
 export interface Board {
@@ -10,18 +12,19 @@ export interface Board {
   members: BoardMember[];
 }
 
-// Board-ul curent al Rotary Club Caransebeș (pagina Membrii activi).
+// Board-ul Rotary Club Caransebeș (pagina Membrii activi).
 export const clubBoard: Board = {
   year: '2026–2027',
   members: [
     { name: 'Mitică Apostu', role: { ro: 'Președinte', en: 'President' } },
+    { name: 'Ciprian-Marian Mocanu', role: { ro: 'Vicepreședinte', en: 'Vice President' } },
     { name: 'Alexandru Frenț', role: { ro: 'Secretar', en: 'Secretary' } },
     { name: 'Cristian Havrileți-Smetana', role: { ro: 'Trezorier', en: 'Treasurer' } },
     { name: 'Călin Lazăr', role: { ro: 'Asistent Guvernator', en: 'Assistant Governor' } },
   ],
 };
 
-// Board-ul curent al clubului Interact Caransebeș (pagina Interact).
+// Board-ul clubului Interact Caransebeș (pagina Interact).
 export const interactBoard: Board = {
   year: '2026–2027',
   members: [
