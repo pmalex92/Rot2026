@@ -104,14 +104,8 @@ Ai nevoie de un cont de Facebook care este **administrator al paginii** clubului
 1. **Aplicația.** Pe [developers.facebook.com/apps](https://developers.facebook.com/apps) → *Create app* → cazul de utilizare „Other” → tip **Business**. Nume: ex. „Site Rotary Caransebeș”. Aplicația poate rămâne în modul *Development*: citește doar pagina ta, deci nu are nevoie de aprobare (App Review).
 2. **ID-ul și secretul aplicației.** În aplicație: *App settings → Basic* → copiază **App ID** și **App Secret**.
 3. **Token-ul scurt.** Deschide [Graph API Explorer](https://developers.facebook.com/tools/explorer/), alege aplicația ta sus-dreapta, la *User or Page* lasă „User Token”, adaugă permisiunile `pages_show_list` și `pages_read_engagement` → *Generate Access Token* → autorizează pagina clubului → copiază token-ul.
-4. **În proiect**, creează `.env` (copie după `.env.example`) și completează:
-   ```
-   FB_APP_ID=...
-   FB_APP_SECRET=...
-   FB_USER_TOKEN=...
-   ```
-5. Rulează `npm run fb-token`. Scriptul schimbă token-ul scurt într-unul permanent, găsește pagina clubului, scrie `FB_PAGE_ID` și `FB_PAGE_ACCESS_TOKEN` în `.env` și îți spune dacă token-ul expiră (trebuie să scrie „Expiră: niciodată”). După asta poți șterge `FB_USER_TOKEN` și `FB_APP_SECRET` din `.env`.
-6. Test: `npm run sync-news` → „Salvate N postări…”. Apoi `npm run build`.
+4. **În folderul proiectului** (pe calculator sau direct pe VPS) rulează `npm run fb-token`. Scriptul îți cere App ID, App Secret și token-ul scurt, îl schimbă într-unul permanent, găsește pagina clubului și scrie în `.env` doar `FB_PAGE_ID` și `FB_PAGE_ACCESS_TOKEN` (trebuie să afișeze „Expiră: niciodată”). Secretul aplicației nu se salvează.
+5. Test: `npm run sync-news` → „Salvate N postări…”. Apoi `npm run build` (pe VPS: `scripts/update-site.sh`).
 
 Token-ul paginii rămâne valabil până când administratorul își schimbă parola, iese din rolul de admin al paginii sau șterge aplicația; atunci repeți pașii 3–5.
 
