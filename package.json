@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run sync-news && astro check && astro build",
-    "build:unchecked": "npm run sync-news && astro build",
+    "build": "npm run photos && npm run sync-news && astro check && astro build",
+    "build:unchecked": "npm run photos && npm run sync-news && astro build",
     "preview": "astro preview",
+    "photos": "node scripts/member-photos.mjs",
     "sync-news": "node --env-file-if-exists=.env scripts/sync-facebook.mjs",
     "fb-token": "node --env-file-if-exists=.env scripts/facebook-token.mjs",
     "astro": "astro"

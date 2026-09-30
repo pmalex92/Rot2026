@@ -84,6 +84,10 @@ Pozele se pun în `public/images/...` și se referă cu calea `/images/...`.
 
 > Fișierele numite `exemplu-*.md` și textele marcate „De completat” sunt conținut demonstrativ — înlocuiește-le cu informațiile reale ale clubului.
 
+### Pozele membrilor
+
+Pune portretele în `photos/profile/`, cu numele persoanei în numele fișierului (ex. `mitica apostu profil.webp`, `calin lazar.jpg`; diacriticele și ordinea cuvintelor nu contează). La `npm run build`, `scripts/member-photos.mjs` le decupează pătrat, le micșorează și le pune automat la membrul potrivit: în board, în lista de membri activi. Dacă un nume din fișier diferă de cel din listă (poreclă, altă grafie), adaugă o linie în `photoAliases` din `src/data/members.ts`. Pe GitHub: intră în `photos/profile` → *Add file → Upload files*.
+
 ### Video-ul din hero
 
 Pagina principală folosește ca fundal un video Vimeo (`heroVimeoId` în `src/data/site.ts`), în modul „background”: pornește automat, fără sunet, în buclă, și funcționează și pe telefoane. Un buton discret în colțul din dreapta-jos permite oprirea lui.

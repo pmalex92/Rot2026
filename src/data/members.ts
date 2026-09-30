@@ -1,4 +1,5 @@
 import type { Lang } from '../i18n/ui';
+import memberPhotoFiles from './member-photos.json';
 
 export interface BoardMember {
   name: string;
@@ -87,18 +88,38 @@ export const pastPresidents: { year: string; name: string; deceased?: boolean }[
   { year: '2006–2007', name: 'Corina Pascotă' },
 ];
 
-// Portrete din public/images/membri/ (pătrate, ~480px). Cheia e numele, în orice ordine
-// („Apostu Mitică” sau „Mitică Apostu”); fără poză, cardul afișează inițialele.
-export const memberPhotos: Record<string, string> = {};
+// Portretele vin din photos/profile/ (vezi scripts/member-photos.mjs): numele fișierului
+// se potrivește cu numele membrului, în orice ordine, fără diacritice; e suficient și
+// începutul unui nume („petri” → Petrișor). Pentru porecle sau alte grafii, adaugă aici.
+const photoAliases: Record<string, string> = {
+  'dana popescu': 'Popescu Daniela',
+  'alexandra frent': 'Franț Alexandra',
+};
 
-const nameKey = (name: string) =>
+const tokens = (name: string) =>
   name
-    .toLocaleLowerCase('ro-RO')
-    .split(/\s+/)
-    .sort()
-    .join(' ');
-const photoIndex = new Map(Object.entries(memberPhotos).map(([name, src]) => [nameKey(name), src]));
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+const nameKey = (name: string) => tokens(name).sort().join(' ');
 
+const photoIndex = new Map<string, string>();
+for (const photo of memberPhotoFiles) {
+  const alias = photoAliases[photo.name];
+  const wanted = tokens(photo.name);
+  const matches = alias
+    ? [alias]
+    : activeMembers.filter((member) => {
+        const have = tokens(member);
+        return wanted.every((w) => have.some((h) => h.startsWith(w)));
+      });
+  if (matches.length === 1) photoIndex.set(nameKey(matches[0]), photo.src);
+  else console.warn(`[member-photos] „${photo.name}”: ${matches.length ? `potriviri multiple (${matches.join(', ')})` : 'niciun membru cu acest nume'}`);
+}
+
+/** Portretul unui membru, după nume (orice ordine a cuvintelor); undefined → inițiale. */
 export function photoFor(name: string): string | undefined {
   return photoIndex.get(nameKey(name));
 }
