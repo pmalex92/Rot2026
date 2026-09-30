@@ -14,16 +14,16 @@ const itemHref = (item: TimelineItem) =>
   item.project ? localePath(lang, `/proiecte/${item.project}`) : item.link ? localePath(lang, item.link) : undefined;
 ---
 
-<BaseLayout title={`${l.title} — Rotary Club Caransebeș`} description={intro[lang][0]} image="/images/aniversare-20-ani-1200.webp">
+<BaseLayout title={`${l.title} — Rotary Club Caransebeș`} description={intro[lang][0]} image="/images/rc-caransebes-district-2241-1200.webp">
   <PageHero title={l.title} intro={intro[lang][0]} eyebrow={l.eyebrow} />
 
   <!-- Intro -->
   <section class="bg-white py-14 sm:py-20">
     <div class="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <picture data-reveal>
-        <source srcset="/images/aniversare-20-ani-700.webp 700w, /images/aniversare-20-ani-1200.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" />
+        <source srcset="/images/rc-caransebes-district-2241-700.webp 700w, /images/rc-caransebes-district-2241-1200.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" />
         <img
-          src="/images/aniversare-20-ani-1200.webp"
+          src="/images/rc-caransebes-district-2241-1200.webp"
           alt={lang === 'ro' ? 'Rotary Club Caransebeș, District 2241, fondat 2006: o clădire istorică din Caransebeș și stema municipiului' : "Rotary Club Caransebeș, District 2241, founded 2006: a historic building in Caransebeș and the city's coat of arms"}
           width="1200"
           height="791"
