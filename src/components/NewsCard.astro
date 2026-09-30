@@ -1,6 +1,6 @@
 ---
 import type { FacebookPost } from '../lib/facebook';
-import { excerpt, formatPostDate } from '../lib/facebook';
+import { formatPostDate, linkParts, paragraphs } from '../lib/facebook';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 const { post } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const blocks = paragraphs(post.message);
 ---
 
 <article class="card flex flex-col overflow-hidden p-0">
@@ -28,7 +29,34 @@ const t = useTranslations(lang);
     <time datetime={post.createdTime} class="text-xs font-semibold uppercase tracking-wide text-rotary-gold">
       {formatPostDate(post.createdTime, lang)}
     </time>
-    <p class="flex-1 text-sm text-rotary-ink/80">{excerpt(post.message)}</p>
+    <div class="flex-1">
+      <div class="post-text space-y-3 text-sm leading-relaxed text-rotary-ink/80" data-post-text>
+        {
+          blocks.map((block) => (
+            <p class="whitespace-pre-line [overflow-wrap:anywhere]">
+              {linkParts(block).map((part) =>
+                part.href ? (
+                  <a href={part.href} target="_blank" rel="noopener noreferrer" class="font-medium text-rotary-azure underline underline-offset-2">
+                    {part.text}
+                  </a>
+                ) : (
+                  part.text
+                )
+              )}
+            </p>
+          ))
+        }
+      </div>
+      <button
+        type="button"
+        class="post-more mt-2 hidden rounded-full text-sm font-semibold text-rotary-azure hover:text-rotary-blue active:opacity-60"
+        aria-expanded="false"
+        data-more={t('home.news.readMore')}
+        data-less={t('home.news.readLess')}
+      >
+        {t('home.news.readMore')}
+      </button>
+    </div>
     <a
       href={post.permalinkUrl}
       target="_blank"
@@ -42,3 +70,33 @@ const t = useTranslations(lang);
     </a>
   </div>
 </article>
+
+<style>
+  /* Long posts start collapsed with a soft fade; "Citește tot" opens them in place. */
+  .post-text.is-clamped {
+    max-height: 15rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent);
+    mask-image: linear-gradient(to bottom, #000 65%, transparent);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-post-text]').forEach((text) => {
+    const button = text.nextElementSibling as HTMLButtonElement | null;
+    if (!button) return;
+    text.classList.add('is-clamped');
+    // Short posts fit entirely: no fade, no button.
+    if (text.scrollHeight <= text.clientHeight + 8) {
+      text.classList.remove('is-clamped');
+      return;
+    }
+    button.classList.remove('hidden');
+    button.addEventListener('click', () => {
+      const open = text.classList.toggle('is-clamped') === false;
+      button.setAttribute('aria-expanded', String(open));
+      button.textContent = (open ? button.dataset.less : button.dataset.more) ?? '';
+      if (!open) text.closest('article')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+  });
+</script>

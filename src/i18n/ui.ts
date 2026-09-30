@@ -34,6 +34,8 @@ export const ui = {
     'home.news.subtitle': 'Direct de pe pagina noastră de Facebook',
     'home.news.viewAll': 'Vezi toate știrile',
     'home.news.viewOnFb': 'Vezi pe Facebook',
+    'home.news.readMore': 'Citește tot',
+    'home.news.readLess': 'Mai puțin',
     'home.news.empty':
       'Momentan nu avem postări sincronizate. Urmărește-ne pe Facebook pentru cele mai noi actualizări.',
 
@@ -121,6 +123,8 @@ export const ui = {
     'home.news.subtitle': 'Straight from our Facebook page',
     'home.news.viewAll': 'View all news',
     'home.news.viewOnFb': 'View on Facebook',
+    'home.news.readMore': 'Read more',
+    'home.news.readLess': 'Show less',
     'home.news.empty':
       "We don't have any synced posts yet. Follow us on Facebook for the latest updates.",
 
