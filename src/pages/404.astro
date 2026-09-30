@@ -1,6 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RotaryWheel from '../components/RotaryWheel.astro';
+import { localePath } from '../i18n/utils';
+
+// The server serves this one file for every missing URL, so both languages are rendered
+// and a tiny script shows the English one under /en/.
+const copy = {
+  ro: {
+    eyebrow: 'Eroare 404',
+    title: 'Ups! Aici roata s-a rupt.',
+    text: 'Pagina pe care o cauți nu există sau s-a mutat odată cu noul site. Nu-i nimic: te ajutăm să ajungi unde voiai.',
+    home: 'Mergi la prima pagină',
+    donate: 'Donează',
+    suggestions: 'Poate căutai una dintre acestea',
+    help: 'Ai ajuns aici dintr-un link vechi sau crezi că e o greșeală?',
+    helpCta: 'Spune-ne și reparăm',
+    links: [
+      { href: '/despre-noi', title: 'Despre noi', text: 'Cine suntem și ce ne unește din 2006.' },
+      { href: '/proiecte', title: 'Proiecte', text: 'Ce am realizat pentru Caransebeș.' },
+      { href: '/proiecte/aripi-pentru-viitor', title: 'Aripi pentru Viitor', text: 'Proiectul nostru în desfășurare.' },
+      { href: '/despre-noi/membri-activi', title: 'Membri activi', text: 'Oamenii din spatele proiectelor.' },
+      { href: '/stiri', title: 'Știri', text: 'Ultimele noutăți de pe Facebook.' },
+      { href: '/contact', title: 'Contact', text: 'Scrie-ne sau vino la o întâlnire.' },
+    ],
+  },
+  en: {
+    eyebrow: 'Error 404',
+    title: 'Oops! The wheel broke here.',
+    text: 'The page you are looking for does not exist or moved with our new website. No worries, we will help you find your way.',
+    home: 'Go to the homepage',
+    donate: 'Donate',
+    suggestions: 'Maybe you were looking for',
+    help: 'Did an old link bring you here, or do you think this is a mistake?',
+    helpCta: 'Let us know and we will fix it',
+    links: [
+      { href: '/despre-noi', title: 'About us', text: 'Who we are and what brings us together since 2006.' },
+      { href: '/proiecte', title: 'Projects', text: 'What we have achieved for Caransebeș.' },
+      { href: '/proiecte/aripi-pentru-viitor', title: 'Wings for the Future', text: 'Our ongoing project.' },
+      { href: '/despre-noi/membri-activi', title: 'Active members', text: 'The people behind the projects.' },
+      { href: '/stiri', title: 'News', text: 'The latest from our Facebook page.' },
+      { href: '/contact', title: 'Contact', text: 'Write to us or join a meeting.' },
+    ],
+  },
+} as const;
+const langs = ['ro', 'en'] as const;
 ---
 
 <BaseLayout
@@ -8,22 +51,116 @@ import RotaryWheel from '../components/RotaryWheel.astro';
   description="Pagina căutată nu există sau a fost mutată. Continuă de pe prima pagină a Rotary Club Caransebeș."
   noindex
 >
-  <section class="relative overflow-hidden bg-rotary-blue text-white">
-    <RotaryWheel class="hero-wheel pointer-events-none absolute -top-24 -right-24 h-96 w-96 text-white/10" />
-    <div class="container-page relative py-20 sm:py-28">
-      <p class="section-eyebrow">404</p>
-      <h1 class="mt-2 text-3xl font-extrabold text-white sm:text-5xl">Pagina nu a fost găsită</h1>
-      <p class="mt-4 max-w-xl text-lg text-white/80">
-        Pagina pe care o cauți nu există sau a fost mutată. Poate te ajută una dintre paginile de mai jos.
-      </p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a href="/" class="btn-primary">Prima pagină</a>
-        <a href="/proiecte/" class="btn-secondary">Proiectele noastre</a>
-        <a href="/doneaza/" class="btn-secondary">Donează</a>
-      </div>
-      <p class="mt-10 text-sm text-white/70">
-        Page not found. <a href="/en/" class="font-semibold text-rotary-gold underline underline-offset-4">Go to the English homepage</a>
-      </p>
-    </div>
-  </section>
+  <script is:inline slot="head">
+    if (location.pathname.startsWith('/en/')) {
+      document.documentElement.classList.add('lang-en');
+      document.documentElement.lang = 'en';
+    }
+  </script>
+
+  {
+    langs.map((lang) => {
+      const c = copy[lang];
+      return (
+        <div data-lang={lang}>
+          <section class="relative overflow-hidden bg-rotary-blue text-white">
+            <RotaryWheel class="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 text-white/5" />
+            <div class="container-page relative grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2">
+              <div class="order-2 lg:order-1">
+                <p class="section-eyebrow">{c.eyebrow}</p>
+                <h1 class="mt-2 text-3xl font-extrabold leading-tight text-white sm:text-5xl">{c.title}</h1>
+                <p class="mt-4 max-w-xl text-lg text-white/80">{c.text}</p>
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a href={localePath(lang, '/')} class="btn-primary">{c.home}</a>
+                  <a href={localePath(lang, '/doneaza')} class="btn-secondary">{c.donate}</a>
+                </div>
+              </div>
+
+              <div class="order-1 flex items-center justify-center gap-4 font-display text-[7rem] font-extrabold leading-none text-rotary-gold sm:text-[10rem] lg:order-2 sm:gap-5">
+                <span aria-hidden="true">4</span>
+                <span class="broken-wheel relative block h-[0.9em] w-[0.9em]" aria-hidden="true">
+                  <RotaryWheel class="piece piece-left absolute inset-0 h-full w-full" />
+                  <RotaryWheel class="piece piece-right absolute inset-0 h-full w-full" />
+                  <span class="chip absolute bottom-[-0.05em] left-[48%] block h-[0.07em] w-[0.07em] rotate-45 bg-rotary-gold" />
+                </span>
+                <span aria-hidden="true">4</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="container-page py-12 sm:py-16">
+            <h2 class="text-2xl font-extrabold sm:text-3xl">{c.suggestions}</h2>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {c.links.map((link) => (
+                <a href={localePath(lang, link.href)} class="card group flex items-start justify-between gap-4 transition hover:-translate-y-1 hover:shadow-xl">
+                  <span>
+                    <span class="block font-display text-lg font-bold text-rotary-blue">{link.title}</span>
+                    <span class="mt-1 block text-sm text-rotary-ink/70">{link.text}</span>
+                  </span>
+                  <span class="mt-1 text-xl text-rotary-gold transition group-hover:translate-x-1" aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+            <p class="mt-10 rounded-2xl bg-rotary-cream p-5 text-sm text-rotary-ink/80">
+              {c.help}{' '}
+              <a href={localePath(lang, '/contact')} class="font-semibold text-rotary-azure underline underline-offset-4 hover:text-rotary-blue">
+                {c.helpCta} →
+              </a>
+            </p>
+          </section>
+        </div>
+      );
+    })
+  }
 </BaseLayout>
+
+<style>
+  [data-lang='en'] {
+    display: none;
+  }
+  :global(html.lang-en) [data-lang='en'] {
+    display: block;
+  }
+  :global(html.lang-en) [data-lang='ro'] {
+    display: none;
+  }
+
+  /* The wheel in "404" is split along a jagged crack; the halves drift apart when the page opens. */
+  .broken-wheel :global(.piece-left) {
+    clip-path: polygon(0 0, 53% 0, 47% 17%, 56% 33%, 45% 50%, 55% 66%, 46% 83%, 52% 100%, 0 100%);
+    transform: translate(-0.11em, -0.01em) rotate(-11deg);
+    animation: crack-left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+  }
+  .broken-wheel :global(.piece-right) {
+    clip-path: polygon(53% 0, 100% 0, 100% 100%, 52% 100%, 46% 83%, 55% 66%, 45% 50%, 56% 33%, 47% 17%);
+    transform: translate(0.12em, 0.08em) rotate(15deg);
+    animation: crack-right 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+  }
+  .chip {
+    animation: chip-fall 0.9s ease-in 0.45s both;
+  }
+
+  @keyframes crack-left {
+    from {
+      transform: none;
+    }
+  }
+  @keyframes crack-right {
+    from {
+      transform: none;
+    }
+  }
+  @keyframes chip-fall {
+    from {
+      transform: translateY(-1.5em) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .broken-wheel :global(.piece),
+    .chip {
+      animation: none;
+    }
+  }
+</style>
