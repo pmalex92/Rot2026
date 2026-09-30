@@ -96,28 +96,48 @@ Dacă video-ul nu apare:
 
 ## Configurare Facebook (secțiunea Știri)
 
-Știrile sunt preluate din pagina de Facebook prin Graph API **la momentul build-ului** și salvate în `src/data/facebook-posts.json`.
+Știrile sunt preluate din pagina de Facebook prin Graph API **la momentul build-ului** și salvate în `src/data/facebook-posts.json`; pozele postărilor se descarcă în `public/images/stiri/` (link-urile de la Facebook expiră).
 Fără configurare, build-ul funcționează în continuare și păstrează ultimele postări salvate.
 
-1. Creează o aplicație pe [developers.facebook.com](https://developers.facebook.com/apps) (tip „Business”).
-2. Din **Graph API Explorer**, cu un cont care este administrator al paginii clubului, generează un *User Token* cu permisiunile `pages_show_list`, `pages_read_engagement` și `pages_read_user_content`.
-3. Transformă-l într-un token cu durată lungă, apoi obține *Page Access Token*-ul paginii (`GET /me/accounts`). Page token-urile obținute dintr-un user token de lungă durată nu expiră cât timp nu se schimbă parola / permisiunile.
-4. Copiază `.env.example` în `.env` și completează:
+Ai nevoie de un cont de Facebook care este **administrator al paginii** clubului. Pașii se fac o singură dată:
+
+1. **Aplicația.** Pe [developers.facebook.com/apps](https://developers.facebook.com/apps) → *Create app* → cazul de utilizare „Other” → tip **Business**. Nume: ex. „Site Rotary Caransebeș”. Aplicația poate rămâne în modul *Development*: citește doar pagina ta, deci nu are nevoie de aprobare (App Review).
+2. **ID-ul și secretul aplicației.** În aplicație: *App settings → Basic* → copiază **App ID** și **App Secret**.
+3. **Token-ul scurt.** Deschide [Graph API Explorer](https://developers.facebook.com/tools/explorer/), alege aplicația ta sus-dreapta, la *User or Page* lasă „User Token”, adaugă permisiunile `pages_show_list` și `pages_read_engagement` → *Generate Access Token* → autorizează pagina clubului → copiază token-ul.
+4. **În proiect**, creează `.env` (copie după `.env.example`) și completează:
    ```
-   FB_PAGE_ID=...
-   FB_PAGE_ACCESS_TOKEN=...
+   FB_APP_ID=...
+   FB_APP_SECRET=...
+   FB_USER_TOKEN=...
    ```
-5. `npm run sync-news` (sau direct `npm run build`).
+5. Rulează `npm run fb-token`. Scriptul schimbă token-ul scurt într-unul permanent, găsește pagina clubului, scrie `FB_PAGE_ID` și `FB_PAGE_ACCESS_TOKEN` în `.env` și îți spune dacă token-ul expiră (trebuie să scrie „Expiră: niciodată”). După asta poți șterge `FB_USER_TOKEN` și `FB_APP_SECRET` din `.env`.
+6. Test: `npm run sync-news` → „Salvate N postări…”. Apoi `npm run build`.
 
-Fișierul `.env` nu se urcă niciodată în git sau pe server.
+Token-ul paginii rămâne valabil până când administratorul își schimbă parola, iese din rolul de admin al paginii sau șterge aplicația; atunci repeți pașii 3–5.
 
-## Actualizarea știrilor
+Fișierul `.env` nu se urcă niciodată în git. Pe VPS îl creezi manual, în folderul proiectului.
 
-Site-ul fiind static, știrile noi apar după un nou build + upload.
-Variante:
+## Actualizarea știrilor (automat, pe VPS)
 
-- **Manual:** `npm run build` și urci din nou `dist/`.
-- **Automat (ulterior):** un job GitHub Actions programat (ex. la 6 ore) care rulează build-ul și urcă `dist/` prin FTP/SFTP. Necesită doar datele FTP ale hosting-ului ca *secrets* în GitHub.
+Site-ul fiind static, postările noi apar după un nou build. Pe VPS, `scripts/update-site.sh` face totul: ia ultima versiune din git, preia postările, construiește site-ul și îl copiază în folderul servit de nginx.
+
+O singură dată, pe server (necesită Node.js 22+, git și rsync):
+
+```bash
+git clone https://github.com/pmalex92/Rot2026.git ~/rotary-site   # repo privat → folosește un deploy key
+cd ~/rotary-site && nano .env                                      # FB_PAGE_ID și FB_PAGE_ACCESS_TOKEN
+WEB_ROOT=/var/www/rotaryclubcaransebes.ro ./scripts/update-site.sh # prima rulare
+```
+
+Apoi `crontab -e` și adaugă (rulează la fiecare 3 ore):
+
+```
+0 */3 * * * WEB_ROOT=/var/www/rotaryclubcaransebes.ro $HOME/rotary-site/scripts/update-site.sh >> $HOME/rotary-site/update.log 2>&1
+```
+
+Același script publică și orice modificare de conținut făcută în git (proiecte, membri, texte). Dacă Facebook răspunde cu eroare, build-ul se oprește și rămâne online versiunea anterioară a site-ului; motivul apare în `update.log`.
+
+Manual, fără VPS: `npm run build` local și urci din nou conținutul lui `dist/`.
 
 ## Identitate vizuală
 

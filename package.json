@@ -10,6 +10,7 @@
     "build:unchecked": "npm run sync-news && astro build",
     "preview": "astro preview",
     "sync-news": "node --env-file-if-exists=.env scripts/sync-facebook.mjs",
+    "fb-token": "node --env-file-if-exists=.env scripts/facebook-token.mjs",
     "astro": "astro"
   },
   "dependencies": {
