@@ -18,5 +18,6 @@ if [ ! -d node_modules ] || [ package-lock.json -nt node_modules/.package-lock.j
 fi
 
 npm run build
-rsync -a --delete dist/ "$WEB_ROOT/"
+# .well-known/ (certificate challenges, domain verification files) is not part of the build: never delete it.
+rsync -a --delete --exclude ".well-known/" dist/ "$WEB_ROOT/"
 echo "[update-site] $(date '+%F %T') site actualizat în $WEB_ROOT"
