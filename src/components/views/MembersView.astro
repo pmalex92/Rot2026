@@ -42,7 +42,15 @@ const intro = t(type === 'activ' ? 'page.membri.intro' : 'page.fostiPresedinti.i
               <li class="relative flex flex-col gap-1 pb-7 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                 <span class="absolute top-1 -left-[33px] h-4 w-4 rounded-full border-4 border-rotary-cream bg-rotary-gold" />
                 <span class="section-eyebrow shrink-0 tabular-nums">{p.year}</span>
-                <span class="font-display text-lg font-bold text-rotary-blue sm:text-right">{p.name}</span>
+                <span class="font-display text-lg font-bold text-rotary-blue sm:text-right">
+                  {p.name}
+                  {p.deceased && (
+                    <>
+                      <span class="ml-1 text-rotary-ink" aria-hidden="true">✝</span>
+                      <span class="sr-only">{lang === 'ro' ? '(decedat)' : '(deceased)'}</span>
+                    </>
+                  )}
+                </span>
               </li>
             ))}
           </ol>
