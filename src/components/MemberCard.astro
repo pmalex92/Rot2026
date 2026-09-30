@@ -1,10 +1,13 @@
 ---
+import { photoFor } from '../data/members';
+
 interface Props {
   name: string;
   role?: string;
   photo?: string;
 }
-const { name, role, photo } = Astro.props;
+const { name, role } = Astro.props;
+const photo = Astro.props.photo ?? photoFor(name);
 
 const initials = name
   .split(/[\s-]+/)
