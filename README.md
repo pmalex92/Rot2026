@@ -45,6 +45,8 @@ server {
 }
 ```
 
+**Redirecturi de la vechiul site:** lista e în `redirects.mjs` (site-ul generează pagini de rezervă care redirecționează). Pentru un 301 real, adaugă în blocul `server` din nginx `include /calea/proiectului/deploy/nginx-redirects.conf;` și dă reload la nginx. Când adaugi un redirect nou, pune-l în ambele fișiere.
+
 Pe Apache (`.htaccess`) echivalentul minim este `ErrorDocument 404 /404.html`.
 
 După publicare, adaugă site-ul în **Google Search Console** și trimite `https://rotaryclubcaransebes.ro/sitemap-index.xml`. `robots.txt` indică deja sitemap-ul.

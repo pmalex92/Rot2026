@@ -1,12 +1,15 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { redirects } from './redirects.mjs';
 
 // `site` is used for sitemap.xml and canonical / Open Graph URLs.
 export default defineConfig({
   site: 'https://rotaryclubcaransebes.ro',
   // Pages are served as folders (/doneaza/index.html); linking with the slash avoids a redirect on every click.
   trailingSlash: 'always',
+  // Old WordPress URLs (see redirects.mjs); nginx also answers them with a real 301.
+  redirects,
   // Load the next page in the background as soon as a link is hovered or focused.
   prefetch: {
     prefetchAll: true,
