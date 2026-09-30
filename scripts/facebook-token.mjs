@@ -13,7 +13,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ENV_PATH = join(dirname(fileURLToPath(import.meta.url)), '..', '.env');
-const GRAPH = `https://graph.facebook.com/${process.env.FB_GRAPH_VERSION || 'v23.0'}`;
+const GRAPH = `https://graph.facebook.com/${process.env.FB_GRAPH_VERSION || 'v26.0'}`;
 const { FB_APP_ID, FB_APP_SECRET, FB_USER_TOKEN, FB_PAGE_ID } = process.env;
 
 const mask = (token) => `${token.slice(0, 6)}…${token.slice(-4)}`;

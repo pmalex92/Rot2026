@@ -18,7 +18,7 @@ const OUTPUT_PATH = join(__dirname, '..', 'src', 'data', 'facebook-posts.json');
 // Pozele se salvează local: link-urile de imagini de la Facebook expiră după câteva zile/săptămâni.
 const IMAGE_DIR = join(__dirname, '..', 'public', 'images', 'stiri');
 const IMAGE_URL = '/images/stiri';
-const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v23.0';
+const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v26.0';
 const POST_LIMIT = 12;
 
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
