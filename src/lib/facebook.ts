@@ -15,9 +15,11 @@ export interface FacebookFeed {
 }
 
 const feed = raw as FacebookFeed;
+// Posts without text (shares from other pages, reels without a caption) would show up as empty cards.
+const posts = feed.posts.filter((post) => post.message.trim());
 
 export function getFacebookPosts(limit?: number): FacebookPost[] {
-  return typeof limit === 'number' ? feed.posts.slice(0, limit) : feed.posts;
+  return typeof limit === 'number' ? posts.slice(0, limit) : posts;
 }
 
 export function getFacebookSyncedAt(): string | null {

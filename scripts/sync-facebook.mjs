@@ -20,6 +20,8 @@ const IMAGE_DIR = join(__dirname, '..', 'public', 'images', 'stiri');
 const IMAGE_URL = '/images/stiri';
 const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v26.0';
 const POST_LIMIT = 12;
+// Cerem mai multe, pentru că postările fără text (redistribuiri, reels fără descriere) sunt sărite.
+const FETCH_LIMIT = 40;
 
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
@@ -45,7 +47,7 @@ async function main() {
 
   const url = new URL(`https://graph.facebook.com/${GRAPH_VERSION}/${FB_PAGE_ID}/posts`);
   url.searchParams.set('fields', FIELDS);
-  url.searchParams.set('limit', String(POST_LIMIT));
+  url.searchParams.set('limit', String(FETCH_LIMIT));
   url.searchParams.set('access_token', FB_PAGE_ACCESS_TOKEN);
 
   const res = await fetch(url);
@@ -60,6 +62,9 @@ async function main() {
   await mkdir(IMAGE_DIR, { recursive: true });
   const posts = [];
   for (const post of json.data ?? []) {
+    if (posts.length >= POST_LIMIT) break;
+    // Fără text propriu (ex. o postare redistribuită de la altă pagină) cardul ar rămâne gol pe site.
+    if (!post.message?.trim()) continue;
     const remoteImage = post.full_picture ?? post.attachments?.data?.[0]?.media?.image?.src ?? null;
     posts.push({
       id: post.id,
