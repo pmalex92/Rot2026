@@ -6,7 +6,8 @@
 // public/images/membri/ și scrie lista în src/data/member-photos.json. Potrivirea cu
 // numele membrilor se face în src/data/members.ts. Rulează automat la `npm run build`.
 
-import { mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -38,13 +39,13 @@ async function main() {
   const list = [];
   for (const file of files.sort()) {
     const name = nameFromFile(file);
-    const out = `${name.replace(/ /g, '-')}.webp`;
     const src = join(SRC_DIR, file);
+    // The content hash in the name makes browsers and Cloudflare fetch a replaced photo right away.
+    const hash = createHash('sha1').update(await readFile(src)).digest('hex').slice(0, 8);
+    const out = `${name.replace(/ /g, '-')}-${hash}.webp`;
     const dest = join(OUT_DIR, out);
-    const outdated = await stat(dest)
-      .then(async (d) => (await stat(src)).mtimeMs > d.mtimeMs)
-      .catch(() => true);
-    if (outdated) {
+    const exists = await stat(dest).then(() => true, () => false);
+    if (!exists) {
       const image = sharp(src).rotate();
       const { width, height } = await image.metadata();
       const side = Math.min(width, height);
@@ -52,7 +53,7 @@ async function main() {
       const top = Math.round(Math.max(0, (height - side) * 0.15));
       await image
         .extract({ left: Math.round((width - side) / 2), top, width: side, height: side })
-        .resize(SIZE, SIZE)
+        .resize(SIZE, SIZE, { withoutEnlargement: true })
         .webp({ quality: 80 })
         .toFile(dest);
     }
