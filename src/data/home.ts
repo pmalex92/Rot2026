@@ -2,11 +2,13 @@ import type { IconName } from '../lib/icons';
 import type { Lang } from '../i18n/ui';
 
 type Feature = { icon: IconName; title: string; text: string };
+/** `image` (din public/images/icons/) înlocuiește iconița desenată, dacă există. */
+type Area = Feature & { image?: string };
 
 interface HomeContent {
   hero: { eyebrow: string; title: string; since: string; text: string; ctaSupport: string; ctaJoin: string; scroll: string; pauseVideo: string; playVideo: string };
   about: { eyebrow: string; title: string; paragraphs: string[]; cta: string };
-  domains: { eyebrow: string; title: string; intro: string; items: Feature[] };
+  domains: { eyebrow: string; title: string; intro: string; items: Area[] };
   impact: { eyebrow: string; title: string; labels: { years: string; projects: string; projectValueEur: string; beneficiaries: string; partners: string; areas: string } };
   mission: { eyebrow: string; title: string; paragraphs: string[]; values: Feature[] };
   projects: { eyebrow: string; title: string; intro: string; readMore: string; all: string };
@@ -37,14 +39,16 @@ export const home: Record<Lang, HomeContent> = {
     },
     domains: {
       eyebrow: 'Ce facem',
-      title: 'Domeniile noastre de implicare',
+      title: 'Domeniile Rotary de implicare',
       intro: 'Intervenim strategic acolo unde comunitatea are nevoie de stabilitate, dezvoltare și continuitate.',
       items: [
-        { icon: 'education', title: 'Educație', text: 'Investim în educație prin burse, resurse și inițiative care susțin performanța și accesul egal.' },
-        { icon: 'health', title: 'Sănătate', text: 'Sprijinim accesul la servicii medicale și intervenim acolo unde resursele sunt limitate.' },
-        { icon: 'community', title: 'Comunitate', text: 'Dezvoltăm proiecte care aduc oamenii împreună și răspund direct nevoilor locale.' },
-        { icon: 'youth', title: 'Tineret', text: 'Încurajăm formarea tinerilor prin programe de leadership, mentorat și implicare civică.' },
-        { icon: 'culture', title: 'Cultură', text: 'Promovăm valorile culturale și susținem inițiativele care definesc identitatea comunității.' },
+        { icon: 'peace', title: 'Consolidarea păcii și prevenirea conflictelor', text: 'Promovăm dialogul, toleranța și înțelegerea, formând tineri care construiesc punți între oameni și comunități.' },
+        { icon: 'disease', title: 'Prevenirea și tratarea bolilor', text: 'Susținem prevenția, depistarea și accesul la tratament, inclusiv eradicarea poliomielitei, prioritatea globală Rotary.' },
+        { icon: 'water', title: 'Apă, sanitație și igienă', text: 'Sprijinim accesul la apă curată, condiții sanitare decente și educația pentru igienă în școli și comunități.' },
+        { icon: 'maternal', title: 'Sănătatea mamei și a copilului', text: 'Contribuim la îngrijiri de calitate pentru mame și copii, prin dotări medicale, prevenție și educație pentru sănătate.' },
+        { icon: 'education', title: 'Educație de bază și alfabetizare', text: 'Investim în burse, dotări pentru școli și programe care oferă fiecărui copil șansa la o educație de calitate.' },
+        { icon: 'economy', title: 'Dezvoltare economică a comunității', text: 'Încurajăm antreprenoriatul, formarea profesională și inițiativele care creează oportunități pentru oamenii locului.' },
+        { icon: 'environment', title: 'Mediu', text: 'Susținem proiecte de protejare a naturii, ecologizare și folosire responsabilă a resurselor.' },
       ],
     },
     impact: {
@@ -60,11 +64,11 @@ export const home: Record<Lang, HomeContent> = {
       },
     },
     mission: {
-      eyebrow: 'Misiunea Rotary',
+      eyebrow: 'Misiunea Rotary Caransebeș',
       title: 'Misiunea noastră',
       paragraphs: [
         'Misiunea Rotary este să creeze schimbare durabilă – la nivel local, național și global – prin proiecte care sprijină educația, sănătatea, mediul înconjurător, tinerii și valorile etice.',
-        'În Caransebeș, punem accent pe solidaritate, integritate și prietenie.',
+        'În Caransebeș, punem accent pe dezvoltarea comunității, susținerea tinerilor și mediul înconjurător.',
       ],
       values: [
         { icon: 'relations', title: 'Consolidarea relațiilor', text: 'Construim prietenii și parteneriate bazate pe încredere și respect.' },
@@ -116,14 +120,16 @@ export const home: Record<Lang, HomeContent> = {
     },
     domains: {
       eyebrow: 'What we do',
-      title: 'Our areas of involvement',
+      title: "Rotary's areas of focus",
       intro: 'We step in strategically where the community needs stability, development and continuity.',
       items: [
-        { icon: 'education', title: 'Education', text: 'We invest in education through scholarships, resources and initiatives that support achievement and equal access.' },
-        { icon: 'health', title: 'Health', text: 'We support access to medical care and step in where resources are limited.' },
-        { icon: 'community', title: 'Community', text: 'We develop projects that bring people together and respond directly to local needs.' },
-        { icon: 'youth', title: 'Youth', text: 'We encourage young people to grow through leadership, mentoring and civic engagement programs.' },
-        { icon: 'culture', title: 'Culture', text: "We promote cultural values and support initiatives that define our community's identity." },
+        { icon: 'peace', title: 'Peacebuilding and conflict prevention', text: 'We promote dialogue, tolerance and understanding, and help young people build bridges between people and communities.' },
+        { icon: 'disease', title: 'Disease prevention and treatment', text: "We support prevention, screening and access to treatment, including polio eradication, Rotary's global priority." },
+        { icon: 'water', title: 'Water, sanitation and hygiene', text: 'We support access to clean water, decent sanitation and hygiene education in schools and communities.' },
+        { icon: 'maternal', title: 'Maternal and child health', text: 'We contribute to quality care for mothers and children through medical equipment, prevention and health education.' },
+        { icon: 'education', title: 'Basic education and literacy', text: 'We invest in scholarships, school equipment and programmes that give every child a chance at a good education.' },
+        { icon: 'economy', title: 'Community economic development', text: 'We encourage entrepreneurship, vocational training and initiatives that create opportunities for local people.' },
+        { icon: 'environment', title: 'Environment', text: 'We support projects that protect nature, clean up the environment and use resources responsibly.' },
       ],
     },
     impact: {
@@ -139,11 +145,11 @@ export const home: Record<Lang, HomeContent> = {
       },
     },
     mission: {
-      eyebrow: 'The Rotary mission',
+      eyebrow: 'The mission of Rotary Caransebeș',
       title: 'Our mission',
       paragraphs: [
         "Rotary's mission is to create lasting change – locally, nationally and globally – through projects that support education, health, the environment, young people and ethical values.",
-        'In Caransebeș, we focus on solidarity, integrity and friendship.',
+        'In Caransebeș, we focus on community development, supporting young people and the environment.',
       ],
       values: [
         { icon: 'relations', title: 'Building relationships', text: 'We build friendships and partnerships based on trust and respect.' },

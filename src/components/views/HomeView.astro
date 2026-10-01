@@ -128,19 +128,23 @@ const joinHref = localePath(lang, '/membership/admitere-in-club');
         <h2 class="mt-3 text-3xl leading-tight font-extrabold sm:text-4xl">{c.domains.title}</h2>
         <p class="mt-4 text-lg text-rotary-ink/70">{c.domains.intro}</p>
       </div>
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <ul class="mt-10 flex flex-wrap justify-center gap-4">
         {
           c.domains.items.map((item, i) => (
             <li
-              class="card group flex gap-4 p-5 transition hover:-translate-y-1 hover:shadow-xl lg:flex-col lg:p-6"
+              class="card group flex w-full gap-4 p-5 transition hover:-translate-y-1 hover:shadow-xl sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] lg:flex-col lg:p-6"
               data-reveal
-              style={`--reveal-delay:${i * 80}ms`}
+              style={`--reveal-delay:${(i % 4) * 80}ms`}
             >
-              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rotary-gold/15 text-rotary-blue transition group-hover:bg-rotary-gold group-hover:text-rotary-navy">
-                <Icon name={item.icon} />
-              </span>
+              {item.image ? (
+                <img src={item.image} alt="" width="56" height="56" loading="lazy" class="h-14 w-14 shrink-0 object-contain transition group-hover:scale-110" />
+              ) : (
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rotary-gold/15 text-rotary-blue transition group-hover:bg-rotary-gold group-hover:text-rotary-navy">
+                  <Icon name={item.icon} />
+                </span>
+              )}
               <div>
-                <h3 class="text-lg font-bold">{item.title}</h3>
+                <h3 class="text-lg leading-snug font-bold">{item.title}</h3>
                 <p class="mt-1 text-sm text-rotary-ink/70">{item.text}</p>
               </div>
             </li>
